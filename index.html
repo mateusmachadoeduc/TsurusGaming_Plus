@@ -92,10 +92,10 @@
   <header class="topbar">
     <div class="title">
       <h1>Tsurus Gaming Plus</h1>
-      <p>Controle mensal de pagamentos com dashboard, compet├¬ncia e estrutura pronta para gastos.</p>
+      <p>Controle mensal de pagamentos com dashboard, competência e gestão de gastos.</p>
     </div>
     <div class="actions">
-      <div id="syncStatus" class="pill warn">Aguardando sincroniza├º├úo</div>
+      <div id="syncStatus" class="pill warn">Aguardando sincronização</div>
       <button id="btnSyncAll" class="btn btn-primary">Sincronizar tudo</button>
     </div>
   </header>
@@ -105,64 +105,66 @@
     <button class="tab-btn" data-tab="pagamentos">Pagamentos</button>
     <button class="tab-btn" data-tab="gastos">Gastos</button>
     <button class="tab-btn" data-tab="jogadores">Jogadores</button>
-    <button class="tab-btn" data-tab="info">Informa├º├Áes</button>
+    <button class="tab-btn" data-tab="info">Informações</button>
   </nav>
 
+  <!-- ── DASHBOARD ── -->
   <section id="tab-dashboard" class="tab-panel active">
     <div class="card relative mb-16">
       <div id="dashLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando dashboard...</div></div></div>
       <div class="toolbar">
-        <div><h2 style="margin:0 0 8px">Per├¡odo do dashboard</h2><div class="muted small">Selecione diretamente o m├¬s e o ano.</div></div>
+        <div><h2 style="margin:0 0 8px">Período do dashboard</h2><div class="muted small">Selecione diretamente o mês e o ano.</div></div>
         <div class="period-box">
           <div class="field"><label for="dashAno">Ano</label><select id="dashAno"></select></div>
-          <div class="field"><label for="dashMes">M├¬s</label><select id="dashMes"></select></div>
-          <div class="field"><label>&nbsp;</label><button id="btnAplicarDashboardPeriodo" class="btn btn-secondary">Aplicar per├¡odo</button></div>
+          <div class="field"><label for="dashMes">Mês</label><select id="dashMes"></select></div>
+          <div class="field"><label>&nbsp;</label><button id="btnAplicarDashboardPeriodo" class="btn btn-secondary">Aplicar período</button></div>
         </div>
       </div>
     </div>
 
     <div class="cards mb-16">
-      <div class="kpi"><div class="label">Receita do m├¬s</div><div id="kpiReceitaMes" class="value">R$ 0,00</div><div class="sub">Pagamentos pagos na compet├¬ncia</div></div>
+      <div class="kpi"><div class="label">Receita do mês</div><div id="kpiReceitaMes" class="value">R$ 0,00</div><div class="sub">Pagamentos pagos na competência</div></div>
       <div class="kpi"><div class="label">Receita do ano</div><div id="kpiReceitaAno" class="value">R$ 0,00</div><div class="sub">Ano selecionado</div></div>
       <div class="kpi"><div class="label">Receita total</div><div id="kpiReceitaTotal" class="value">R$ 0,00</div><div class="sub">Acumulado geral</div></div>
-      <div class="kpi"><div class="label">Gastos do m├¬s</div><div id="kpiGastosMes" class="value">R$ 0,00</div><div class="sub">Aguardando integra├º├úo</div></div>
-      <div class="kpi"><div class="label">Saldo l├¡quido do m├¬s</div><div id="kpiSaldoLiquidoMes" class="value">R$ 0,00</div><div class="sub">Receita do m├¬s - gastos</div></div>
+      <div class="kpi"><div class="label">Gastos do mês</div><div id="kpiGastosMes" class="value">R$ 0,00</div><div class="sub">Gastos lançados na competência</div></div>
+      <div class="kpi"><div class="label">Saldo líquido do mês</div><div id="kpiSaldoLiquidoMes" class="value">R$ 0,00</div><div class="sub">Receita do mês − gastos</div></div>
     </div>
 
     <div class="cards mb-16">
       <div class="kpi"><div class="label">Jogadores ativos</div><div id="kpiJogadoresAtivos" class="value">0</div><div class="sub">Assinatura ativa</div></div>
-      <div class="kpi"><div class="label">N├úo pagantes do m├¬s</div><div id="kpiNaoPagantes" class="value">0</div><div class="sub">Compet├¬ncia atual</div></div>
-      <div class="kpi"><div class="label">Pagos do m├¬s</div><div id="kpiPagosMes" class="value">0</div><div class="sub">Status Pago</div></div>
-      <div class="kpi"><div class="label">Pendentes do m├¬s</div><div id="kpiPendentesMes" class="value">0</div><div class="sub">Status Pendente</div></div>
+      <div class="kpi"><div class="label">Não pagantes do mês</div><div id="kpiNaoPagantes" class="value">0</div><div class="sub">Competência atual</div></div>
+      <div class="kpi"><div class="label">Pagos do mês</div><div id="kpiPagosMes" class="value">0</div><div class="sub">Status Pago</div></div>
+      <div class="kpi"><div class="label">Pendentes do mês</div><div id="kpiPendentesMes" class="value">0</div><div class="sub">Status Pendente</div></div>
       <div class="kpi"><div class="label">Atrasados gerais</div><div id="kpiAtrasados" class="value">0</div><div class="sub">Todos os meses</div></div>
     </div>
 
     <div class="split-2 mb-16">
-      <div class="card chart-box"><h2>Recebimento por m├¬s</h2><div class="chart-wrap"><canvas id="chartResumoMensal"></canvas></div></div>
-      <div class="card chart-box"><h2>Status da compet├¬ncia</h2><div class="chart-wrap"><canvas id="chartStatusCompetencia"></canvas></div></div>
+      <div class="card chart-box"><h2>Recebimento por mês</h2><div class="chart-wrap"><canvas id="chartResumoMensal"></canvas></div></div>
+      <div class="card chart-box"><h2>Status da competência</h2><div class="chart-wrap"><canvas id="chartStatusCompetencia"></canvas></div></div>
     </div>
 
     <div class="split-2">
       <div class="card">
         <h2>Resumo mensal do ano</h2>
-        <div class="table-wrap"><table><thead><tr><th>M├¬s</th><th>Total recebido</th></tr></thead><tbody id="dashboardResumoBody"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th>Mês</th><th>Total recebido</th></tr></thead><tbody id="dashboardResumoBody"></tbody></table></div>
       </div>
       <div class="card">
-        <h2>N├úo pagantes da compet├¬ncia</h2>
+        <h2>Não pagantes da competência</h2>
         <div class="table-wrap"><table><thead><tr><th>Jogador</th><th>Nickname</th><th>Meses em aberto</th></tr></thead><tbody id="dashboardNaoPagantesBody"></tbody></table></div>
       </div>
     </div>
   </section>
 
+  <!-- ── PAGAMENTOS ── -->
   <section id="tab-pagamentos" class="tab-panel">
     <div class="card relative mb-16">
-      <div id="competenciaLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando compet├¬ncia...</div></div></div>
+      <div id="competenciaLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando competência...</div></div></div>
       <div class="toolbar">
-        <div><h2 style="margin:0 0 8px">Compet├¬ncia de pagamentos</h2><div class="muted small">Selecione diretamente o m├¬s e o ano que deseja trabalhar.</div></div>
+        <div><h2 style="margin:0 0 8px">Competência de pagamentos</h2><div class="muted small">Selecione diretamente o mês e o ano que deseja trabalhar.</div></div>
         <div class="period-box">
           <div class="field"><label for="payAno">Ano</label><select id="payAno"></select></div>
-          <div class="field"><label for="payMes">M├¬s</label><select id="payMes"></select></div>
-          <div class="field"><label>&nbsp;</label><button id="btnAplicarCompetenciaPeriodo" class="btn btn-secondary">Carregar compet├¬ncia</button></div>
+          <div class="field"><label for="payMes">Mês</label><select id="payMes"></select></div>
+          <div class="field"><label>&nbsp;</label><button id="btnAplicarCompetenciaPeriodo" class="btn btn-secondary">Carregar competência</button></div>
         </div>
       </div>
     </div>
@@ -171,34 +173,34 @@
       <div class="kpi"><div class="label">Pagos</div><div id="cmpPagos" class="value">0</div><div class="sub">Registros com status Pago</div></div>
       <div class="kpi"><div class="label">Pendentes</div><div id="cmpPendentes" class="value">0</div><div class="sub">Registros com status Pendente</div></div>
       <div class="kpi"><div class="label">Atrasados</div><div id="cmpAtrasados" class="value">0</div><div class="sub">Registros com status Atrasado</div></div>
-      <div class="kpi"><div class="label">N├úo pagantes</div><div id="cmpNaoPagantes" class="value">0</div><div class="sub">Jogadores ativos sem lan├ºamento</div></div>
-      <div class="kpi"><div class="label">Recebido no m├¬s</div><div id="cmpValorRecebido" class="value">R$ 0,00</div><div class="sub">Somente pagos</div></div>
+      <div class="kpi"><div class="label">Não pagantes</div><div id="cmpNaoPagantes" class="value">0</div><div class="sub">Jogadores ativos sem lançamento</div></div>
+      <div class="kpi"><div class="label">Recebido no mês</div><div id="cmpValorRecebido" class="value">R$ 0,00</div><div class="sub">Somente pagos</div></div>
     </div>
 
     <div class="grid-2 mb-16">
       <div class="card">
-        <h2>Lan├ºamento r├ípido por jogador</h2>
+        <h2>Lançamento rápido por jogador</h2>
         <div class="form-grid-4">
-          <div><label for="quickValor">Valor padr├úo</label><input id="quickValor" type="number" step="0.01" min="0" value="35" /></div>
-          <div><label for="quickStatus">Status padr├úo</label>
+          <div><label for="quickValor">Valor padrão</label><input id="quickValor" type="number" step="0.01" min="0" value="35" /></div>
+          <div><label for="quickStatus">Status padrão</label>
             <select id="quickStatus"><option value="Pago">Pago</option><option value="Pendente">Pendente</option><option value="Atrasado">Atrasado</option><option value="Isento">Isento</option></select>
           </div>
-          <div><label for="quickData">Data padr├úo</label><input id="quickData" type="date" /></div>
-          <div><label for="quickRef">Refer├¬ncia padr├úo</label><input id="quickRef" value="Pix" /></div>
+          <div><label for="quickData">Data padrão</label><input id="quickData" type="date" /></div>
+          <div><label for="quickRef">Referência padrão</label><input id="quickRef" value="Pix" /></div>
         </div>
         <div class="form-grid mt-16">
-          <div><label for="quickObs">Observa├º├Áes padr├úo</label><input id="quickObs" /></div>
-          <div><label>&nbsp;</label><div class="note">O registro em lote usa exatamente estes valores do per├¡odo selecionado.</div></div>
+          <div><label for="quickObs">Observações padrão</label><input id="quickObs" /></div>
+          <div><label>&nbsp;</label><div class="note">O registro em lote usa exatamente estes valores do período selecionado.</div></div>
         </div>
       </div>
 
       <div class="card relative">
-        <div id="loteLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Salvando lan├ºamentos em lote...</div></div></div>
-        <h2>Lan├ºamento em lote</h2>
-        <p class="muted small">Selecione jogadores na tabela de n├úo pagantes e registre v├írios pagamentos de uma vez.</p>
+        <div id="loteLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Salvando lançamentos em lote...</div></div></div>
+        <h2>Lançamento em lote</h2>
+        <p class="muted small">Selecione jogadores na tabela de não pagantes e registre vários pagamentos de uma vez.</p>
         <div class="form-actions">
           <button id="btnSelecionarTodosNaoPagantes" class="btn btn-secondary" type="button">Selecionar todos</button>
-          <button id="btnLimparSelecaoNaoPagantes" class="btn btn-ghost" type="button">Limpar sele├º├úo</button>
+          <button id="btnLimparSelecaoNaoPagantes" class="btn btn-ghost" type="button">Limpar seleção</button>
           <button id="btnRegistrarLote" class="btn btn-primary" type="button">Registrar selecionados</button>
         </div>
         <div id="pagamentoMsg" class="msg hidden"></div>
@@ -207,11 +209,11 @@
 
     <div class="stack">
       <div class="card relative">
-        <div id="naoPagantesLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando n├úo pagantes...</div></div></div>
-        <div class="toolbar mb-16"><h2>N├úo pagantes da compet├¬ncia</h2><div class="group"><input id="filtroNaoPagantes" placeholder="Buscar por nome, nickname ou ID" style="width:280px" /></div></div>
+        <div id="naoPagantesLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando não pagantes...</div></div></div>
+        <div class="toolbar mb-16"><h2>Não pagantes da competência</h2><div class="group"><input id="filtroNaoPagantes" placeholder="Buscar por nome, nickname ou ID" style="width:280px" /></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th class="nowrap">Sel.</th><th>ID</th><th>Jogador</th><th>Nickname</th><th>Meses em aberto</th><th>├Ültimo pagamento</th><th>A├º├Áes</th></tr></thead>
+            <thead><tr><th class="nowrap">Sel.</th><th>ID</th><th>Jogador</th><th>Nickname</th><th>Meses em aberto</th><th>Último pagamento</th><th>Ações</th></tr></thead>
             <tbody id="naoPagantesBody"></tbody>
           </table>
         </div>
@@ -219,10 +221,10 @@
 
       <div class="card relative">
         <div id="pagamentosLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando pagamentos...</div></div></div>
-        <div class="toolbar mb-16"><h2>Pagamentos da compet├¬ncia</h2><div class="group"><input id="filtroPagamentos" placeholder="Buscar pagamento, jogador ou refer├¬ncia" style="width:320px" /></div></div>
+        <div class="toolbar mb-16"><h2>Pagamentos da competência</h2><div class="group"><input id="filtroPagamentos" placeholder="Buscar pagamento, jogador ou referência" style="width:320px" /></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>ID</th><th>Jogador</th><th>Valor</th><th>Status</th><th>Data pagamento</th><th>Refer├¬ncia</th><th>Observa├º├Áes</th><th>A├º├Áes</th></tr></thead>
+            <thead><tr><th>ID</th><th>Jogador</th><th>Valor</th><th>Status</th><th>Data pagamento</th><th>Referência</th><th>Observações</th><th>Ações</th></tr></thead>
             <tbody id="pagamentosBody"></tbody>
           </table>
         </div>
@@ -230,53 +232,68 @@
     </div>
   </section>
 
+  <!-- ── GASTOS ── -->
   <section id="tab-gastos" class="tab-panel">
     <div class="card relative mb-16">
       <div id="gastosLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando gastos...</div></div></div>
       <div class="toolbar">
-        <div><h2 style="margin:0 0 8px">Per├¡odo de gastos</h2><div class="muted small">Selecione diretamente o m├¬s e o ano que deseja trabalhar.</div></div>
+        <div><h2 style="margin:0 0 8px">Período de gastos</h2><div class="muted small">Selecione diretamente o mês e o ano que deseja trabalhar.</div></div>
         <div class="period-box">
           <div class="field"><label for="gastAno">Ano</label><select id="gastAno"></select></div>
-          <div class="field"><label for="gastMes">M├¬s</label><select id="gastMes"></select></div>
+          <div class="field"><label for="gastMes">Mês</label><select id="gastMes"></select></div>
           <div class="field"><label>&nbsp;</label><button id="btnAplicarGastosPeriodo" class="btn btn-secondary">Carregar gastos</button></div>
         </div>
       </div>
     </div>
 
     <div class="grid-5 mb-16">
-      <div class="kpi"><div class="label">Total de gastos</div><div id="gastTotalMes" class="value">R$ 0,00</div><div class="sub">Gastos registrados</div></div>
-      <div class="kpi"><div class="label">Alimenta├º├úo</div><div id="gastAlimentacao" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
+      <div class="kpi"><div class="label">Total de gastos</div><div id="gastTotalMes" class="value">R$ 0,00</div><div class="sub">Gastos registrados no período</div></div>
+      <div class="kpi"><div class="label">Alimentação</div><div id="gastAlimentacao" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
       <div class="kpi"><div class="label">Servidores</div><div id="gastServidores" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
       <div class="kpi"><div class="label">Outros custos</div><div id="gastOutros" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
-      <div class="kpi"><div class="label">Quantidade</div><div id="gastQuantidade" class="value">0</div><div class="sub">Registros do m├¬s</div></div>
+      <div class="kpi"><div class="label">Quantidade</div><div id="gastQuantidade" class="value">0</div><div class="sub">Registros do mês</div></div>
     </div>
 
     <div class="grid-2 mb-16">
       <div class="card">
-        <h2>Lan├ºar novo gasto</h2>
+        <h2>Lançar novo gasto</h2>
         <form id="formGasto">
           <div class="form-grid-3">
             <div><label for="gastData">Data</label><input id="gastData" type="date" required /></div>
             <div><label for="gastValor">Valor</label><input id="gastValor" type="number" step="0.01" min="0" required /></div>
-            <div><label for="gastCategoria">Categoria</label><select id="gastCategoria" required><option value="">Selecione...</option><option value="Alimenta├º├úo">Alimenta├º├úo</option><option value="Servidores">Servidores</option><option value="Outros">Outros custos</option></select></div>
+            <div><label for="gastCategoria">Categoria</label>
+              <select id="gastCategoria" required>
+                <option value="">Selecione...</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Servidores">Servidores</option>
+                <option value="Outros">Outros custos</option>
+              </select>
+            </div>
           </div>
-          <div class="mt-16"><label for="gastDescricao">Descri├º├úo</label><input id="gastDescricao" placeholder="Descri├º├úo do gasto" /></div>
+          <div class="mt-16"><label for="gastDescricao">Descrição</label><input id="gastDescricao" placeholder="Descrição do gasto" /></div>
+          <div class="mt-16"><label for="gastRef">Referência</label><input id="gastRef" placeholder="Ex: Pix, Cartão..." /></div>
           <div class="form-actions"><button class="btn btn-primary" type="submit">Registrar gasto</button></div>
         </form>
         <div id="gastoMsg" class="msg hidden"></div>
       </div>
 
       <div class="card">
-        <h2>Filtros e a├º├Áes</h2>
+        <h2>Filtros e ações</h2>
         <div class="form-grid">
-          <div><label for="filtroGastos">Buscar</label><input id="filtroGastos" placeholder="Descri├º├úo ou categoria" /></div>
-          <div><label for="filtroGastosCategoria">Categoria</label><select id="filtroGastosCategoria"><option value="">Todas</option><option value="Alimenta├º├úo">Alimenta├º├úo</option><option value="Servidores">Servidores</option><option value="Outros">Outros custos</option></select></div>
+          <div><label for="filtroGastos">Buscar</label><input id="filtroGastos" placeholder="Descrição ou categoria" /></div>
+          <div><label for="filtroGastosCategoria">Categoria</label>
+            <select id="filtroGastosCategoria">
+              <option value="">Todas</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Servidores">Servidores</option>
+              <option value="Outros">Outros custos</option>
+            </select>
+          </div>
         </div>
         <div class="form-actions">
           <button id="btnFiltrarGastos" class="btn btn-secondary" type="button">Aplicar filtro</button>
           <button id="btnLimparFiltroGastos" class="btn btn-ghost" type="button">Limpar</button>
         </div>
-        <div class="note mt-16">Os gastos s├úo armazenados localmente at├® a integra├º├úo com a API ser configurada.</div>
       </div>
     </div>
 
@@ -285,13 +302,14 @@
       <h2>Gastos registrados</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Data</th><th>Categoria</th><th>Descri├º├úo</th><th>Valor</th><th>A├º├Áes</th></tr></thead>
+          <thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Referência</th><th>Valor</th><th>Ações</th></tr></thead>
           <tbody id="gastosBody"></tbody>
         </table>
       </div>
     </div>
   </section>
 
+  <!-- ── JOGADORES ── -->
   <section id="tab-jogadores" class="tab-panel">
     <div class="grid-2 mb-16">
       <div class="card">
@@ -301,7 +319,7 @@
             <div><label for="jogNome">Nome do jogador</label><input id="jogNome" required /></div>
             <div><label for="jogNickname">Nickname</label><input id="jogNickname" required /></div>
             <div><label for="jogStatus">Status da assinatura</label><select id="jogStatus"><option value="Ativa">Ativa</option><option value="Desativada">Desativada</option></select></div>
-            <div><label for="jogObs">Observa├º├Áes</label><input id="jogObs" /></div>
+            <div><label for="jogObs">Observações</label><input id="jogObs" /></div>
           </div>
           <div class="form-actions"><button class="btn btn-primary" type="submit">Cadastrar jogador</button></div>
         </form>
@@ -326,41 +344,44 @@
       <h2>Jogadores cadastrados</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>ID</th><th>Nome</th><th>Nickname</th><th>Status</th><th>Cadastro</th><th>Observa├º├Áes</th><th>A├º├Áes</th></tr></thead>
+          <thead><tr><th>ID</th><th>Nome</th><th>Nickname</th><th>Status</th><th>Cadastro</th><th>Observações</th><th>Ações</th></tr></thead>
           <tbody id="jogadoresBody"></tbody>
         </table>
       </div>
     </div>
   </section>
 
+  <!-- ── INFORMAÇÕES ── -->
   <section id="tab-info" class="tab-panel">
     <div class="grid-2">
       <div class="card">
         <h2>Fonte fixa de dados</h2>
-        <p class="muted" style="word-break:break-all">Este front-end usa diretamente a URL fixa do Apps Script:</p>
+        <p class="muted">API principal (pagamentos e jogadores):</p>
         <div class="note" style="word-break:break-all">https://script.google.com/macros/s/AKfycbziPcwjHO4-TrIBcwJ9Cyfx33dN2VehPihgH8RYGRSTquAB_-c1BBN5KCnLrQB8KaMpDA/exec</div>
-      <div class="note" style="word-break:break-all">Nova API de gastos: https://script.google.com/macros/s/AKfycbxHCxo1luNRkbk2FUzV65aVadBnTMNmO17oCPKXCW026p85u_7NgJ-JHhhGHX2EryjZoQ/exec</div>
+        <p class="muted mt-16">API de gastos:</p>
+        <div class="note" style="word-break:break-all">https://script.google.com/macros/s/AKfycbzPSIskbSE1KbZ6YC6RsB77S3Y6JjZ6yWX3RgINeoev3f4rMJ3rv_b0tNOMsgCsHnA6Pw/exec</div>
         <div class="form-actions">
-          <button id="btnTestarConexao" class="btn btn-secondary">Testar conex├úo</button>
+          <button id="btnTestarConexao" class="btn btn-secondary">Testar conexão</button>
           <button id="btnSincronizarInfo" class="btn btn-primary">Sincronizar agora</button>
         </div>
         <div id="infoMsg" class="msg hidden"></div>
       </div>
       <div class="card">
-        <h2>Pr├│xima atualiza├º├úo: gastos</h2>
-        <p class="muted">O front-end j├í est├í preparado visualmente para receber o valor de uma segunda planilha de gastos.</p>
-        <ul class="muted">
-          <li>Os cards ÔÇ£Gastos do m├¬sÔÇØ e ÔÇ£Saldo l├¡quido do m├¬sÔÇØ j├í existem.</li>
-          <li>No momento, os gastos ficam em <strong>R$ 0,00</strong>.</li>
-          <li>Quando a segunda planilha e a rota do Apps Script forem criadas, o front-end poder├í come├ºar a consumir esses dados.</li>
-        </ul>
+        <h2>Observações</h2>
+        <ol class="muted" style="padding-left:20px;line-height:1.9;margin:0">
+          <li>Na aba Gastos, selecione o período e clique em "Carregar gastos" para ver os lançamentos.</li>
+          <li>O dashboard exibe automaticamente o total de gastos e o saldo líquido do mês.</li>
+          <li>Categorias disponíveis: Alimentação, Servidores, Outros custos.</li>
+          <li>Use "Sincronizar tudo" para atualizar todas as abas de uma vez.</li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <footer>Tsurus Gaming Plus ÔÇö vers├úo com sele├º├úo direta de m├¬s e ano.</footer>
+  <footer>Tsurus Gaming Plus — versão com gestão de gastos integrada.</footer>
 </div>
 
+<!-- Modal Editar Jogador -->
 <div id="playerModalBackdrop" class="modal-backdrop">
   <div class="modal">
     <div class="modal-header"><div class="modal-title">Editar jogador</div><button class="close-x" type="button" data-close-modal="player">Fechar</button></div>
@@ -370,7 +391,7 @@
         <div><label for="editPlayerNome">Nome</label><input id="editPlayerNome" required /></div>
         <div><label for="editPlayerNickname">Nickname</label><input id="editPlayerNickname" required /></div>
         <div><label for="editPlayerStatus">Status</label><select id="editPlayerStatus"><option value="Ativa">Ativa</option><option value="Desativada">Desativada</option></select></div>
-        <div><label for="editPlayerObs">Observa├º├Áes</label><input id="editPlayerObs" /></div>
+        <div><label for="editPlayerObs">Observações</label><input id="editPlayerObs" /></div>
       </div>
       <div class="form-actions"><button id="btnSalvarEdicaoJogador" class="btn btn-primary" type="submit">Salvar jogador</button></div>
     </form>
@@ -378,6 +399,7 @@
   </div>
 </div>
 
+<!-- Modal Editar Pagamento -->
 <div id="paymentModalBackdrop" class="modal-backdrop">
   <div class="modal">
     <div class="modal-header"><div class="modal-title">Editar pagamento</div><button class="close-x" type="button" data-close-modal="payment">Fechar</button></div>
@@ -385,15 +407,15 @@
       <input type="hidden" id="editPagamentoId" />
       <div class="form-grid-3">
         <div><label for="editPagamentoAno">Ano</label><input id="editPagamentoAno" type="number" min="2026" /></div>
-        <div><label for="editPagamentoMes">M├¬s</label><input id="editPagamentoMes" type="number" min="1" max="12" /></div>
+        <div><label for="editPagamentoMes">Mês</label><input id="editPagamentoMes" type="number" min="1" max="12" /></div>
         <div><label for="editPagamentoValor">Valor</label><input id="editPagamentoValor" type="number" step="0.01" min="0" /></div>
       </div>
       <div class="form-grid-3 mt-16">
         <div><label for="editPagamentoStatus">Status</label><select id="editPagamentoStatus"><option value="Pago">Pago</option><option value="Pendente">Pendente</option><option value="Atrasado">Atrasado</option><option value="Isento">Isento</option></select></div>
         <div><label for="editPagamentoData">Data pagamento</label><input id="editPagamentoData" type="date" /></div>
-        <div><label for="editPagamentoRef">Refer├¬ncia</label><input id="editPagamentoRef" /></div>
+        <div><label for="editPagamentoRef">Referência</label><input id="editPagamentoRef" /></div>
       </div>
-      <div class="mt-16"><label for="editPagamentoObs">Observa├º├Áes</label><textarea id="editPagamentoObs"></textarea></div>
+      <div class="mt-16"><label for="editPagamentoObs">Observações</label><textarea id="editPagamentoObs"></textarea></div>
       <div class="form-actions"><button id="btnSalvarEdicaoPagamento" class="btn btn-primary" type="submit">Salvar pagamento</button></div>
     </form>
     <div id="editPaymentMsg" class="msg hidden"></div>
@@ -401,122 +423,152 @@
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbziPcwjHO4-TrIBcwJ9Cyfx33dN2VehPihgH8RYGRSTquAB_-c1BBN5KCnLrQB8KaMpDA/exec';
-const API_GASTOS_URL = 'https://script.google.com/macros/s/AKfycbxHCxo1luNRkbk2FUzV65aVadBnTMNmO17oCPKXCW026p85u_7NgJ-JHhhGHX2EryjZoQ/exec';
-const MONTH_NAMES = ['Janeiro','Fevereiro','Mar├ºo','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const API_URL       = 'https://script.google.com/macros/s/AKfycbziPcwjHO4-TrIBcwJ9Cyfx33dN2VehPihgH8RYGRSTquAB_-c1BBN5KCnLrQB8KaMpDA/exec';
+const API_GASTOS_URL = 'https://script.google.com/macros/s/AKfycbzPSIskbSE1KbZ6YC6RsB77S3Y6JjZ6yWX3RgINeoev3f4rMJ3rv_b0tNOMsgCsHnA6Pw/exec';
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
-const state = { jogadores: [], dashboard: null, competencia: { pagamentos: [], nao_pagantes: [] }, gastos: [], dashboardRef: { ano: 2026, mes: 2 }, paymentsRef: { ano: 2026, mes: 2 }, gastosRef: { ano: 2026, mes: 2 }, charts: { resumo: null, status: null }, selectedNaoPagantes: new Set() };
+const state = {
+  jogadores: [],
+  dashboard: null,
+  competencia: { pagamentos: [], nao_pagantes: [] },
+  gastos: [],
+  dashboardRef: { ano: 2026, mes: 2 },
+  paymentsRef:  { ano: 2026, mes: 2 },
+  gastosRef:    { ano: 2026, mes: 2 },
+  charts: { resumo: null, status: null },
+  selectedNaoPagantes: new Set()
+};
 const $ = (id) => document.getElementById(id);
 
-function escapeHtml(value){return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;")}
-function fmtCurrency(value){return Number(value || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
-function fmtDate(value){if(!value)return '-'; const d=new Date(value); if(Number.isNaN(d.getTime())) return String(value); return d.toLocaleDateString('pt-BR')}
-function toInputDate(value){if(!value)return ''; const d=new Date(value); if(Number.isNaN(d.getTime())) return ''; return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function getTodayISO(){return toInputDate(new Date())}
-function renderAssinatura(status){return String(status||'')==='Ativa'?'<span class="badge active">Ativa</span>':'<span class="badge off">Desativada</span>'}
-function renderStatusPagamento(status){const s=String(status||''); if(s==='Pago') return '<span class="badge paid">Pago</span>'; if(s==='Pendente') return '<span class="badge pending">Pendente</span>'; if(s==='Atrasado') return '<span class="badge late">Atrasado</span>'; return '<span class="badge free">Isento</span>'}
-function gastoField(item, ...keys){ for(const key of keys){ if(item[key] !== undefined && item[key] !== null) return item[key]; } return ''; }
-function setSyncStatus(text,type='warn'){const el=$('syncStatus'); el.textContent=text; el.className=`pill ${type}`}
-function showMessage(el,text,type='info'){el.textContent=text; el.className=`msg ${type}`; el.classList.remove('hidden')}
-function hideMessage(el){el.textContent=''; el.className='msg hidden'}
+// ── Utilidades gerais ─────────────────────────────────────────
+function escapeHtml(v){ return String(v ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;") }
+function fmtCurrency(v){ return Number(v || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) }
+function fmtDate(v){ if(!v) return '-'; const d=new Date(v); return Number.isNaN(d.getTime()) ? String(v) : d.toLocaleDateString('pt-BR') }
+function toInputDate(v){ if(!v) return ''; const d=new Date(v); if(Number.isNaN(d.getTime())) return ''; return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}` }
+function getTodayISO(){ return toInputDate(new Date()) }
+// Lê campo de objeto de gasto tentando várias chaves (ex: 'Competencia_Ano' ou 'competencia_ano')
+function gf(item, ...keys){ for(const k of keys){ if(item[k] !== undefined && item[k] !== null) return item[k]; } return '' }
+
+function renderAssinatura(s){ return String(s||'')==='Ativa' ? '<span class="badge active">Ativa</span>' : '<span class="badge off">Desativada</span>' }
+function renderStatusPagamento(s){ const v=String(s||''); if(v==='Pago') return '<span class="badge paid">Pago</span>'; if(v==='Pendente') return '<span class="badge pending">Pendente</span>'; if(v==='Atrasado') return '<span class="badge late">Atrasado</span>'; return '<span class="badge free">Isento</span>' }
+function setSyncStatus(text,type='warn'){ const el=$('syncStatus'); el.textContent=text; el.className=`pill ${type}` }
+function showMessage(el,text,type='info'){ el.textContent=text; el.className=`msg ${type}`; el.classList.remove('hidden') }
+function hideMessage(el){ el.textContent=''; el.className='msg hidden' }
 function openModal(type){ if(type==='player') $('playerModalBackdrop').classList.add('show'); if(type==='payment') $('paymentModalBackdrop').classList.add('show') }
 function closeModal(type){ if(type==='player'){ $('playerModalBackdrop').classList.remove('show'); hideMessage($('editPlayerMsg')); } if(type==='payment'){ $('paymentModalBackdrop').classList.remove('show'); hideMessage($('editPaymentMsg')); } }
-function setLoadingArea(id,active,message){const overlay=$(id); if(overlay) overlay.classList.toggle('hidden',!active); if(message) setSyncStatus(message, active ? 'warn':'success')}
-function setActionButtonsDisabled(active){['btnSyncAll','btnRegistrarLote','btnAplicarDashboardPeriodo','btnAplicarCompetenciaPeriodo','btnAplicarGastosPeriodo','btnSelecionarTodosNaoPagantes','btnLimparSelecaoNaoPagantes','btnSalvarEdicaoJogador','btnSalvarEdicaoPagamento','btnTestarConexao','btnSincronizarInfo','btnFiltrarGastos','btnLimparFiltroGastos'].forEach(id=>{const el=$(id); if(el) el.disabled=active}); document.querySelectorAll('[data-action-btn="1"]').forEach(el=>el.disabled=active)}
+function setLoadingArea(id,active,msg){ const o=$(id); if(o) o.classList.toggle('hidden',!active); if(msg) setSyncStatus(msg, active ? 'warn':'success') }
+function setActionButtonsDisabled(active){
+  ['btnSyncAll','btnRegistrarLote','btnAplicarDashboardPeriodo','btnAplicarCompetenciaPeriodo','btnAplicarGastosPeriodo',
+   'btnSelecionarTodosNaoPagantes','btnLimparSelecaoNaoPagantes','btnSalvarEdicaoJogador','btnSalvarEdicaoPagamento',
+   'btnTestarConexao','btnSincronizarInfo','btnFiltrarGastos','btnLimparFiltroGastos'].forEach(id=>{const el=$(id); if(el) el.disabled=active});
+  document.querySelectorAll('[data-action-btn="1"]').forEach(el=>el.disabled=active);
+}
 
-async function apiGetBase(baseUrl, action, params = {}){
+// ── HTTP helpers ──────────────────────────────────────────────
+async function apiGetBase(baseUrl, action, params={}){
   const url = new URL(baseUrl);
   url.searchParams.set('action', action);
-  Object.entries(params).forEach(([k,v]) => { if(v !== undefined && v !== null && v !== '') url.searchParams.set(k, v); });
+  Object.entries(params).forEach(([k,v])=>{ if(v!==undefined && v!==null && v!=='') url.searchParams.set(k,v); });
   const res = await fetch(url.toString(), { method:'GET' });
   const text = await res.text();
-  let json;
-  try { json = JSON.parse(text); } catch(e) { throw new Error('Resposta inv├ílida do Apps Script: ' + text); }
-  if(!json.ok) throw new Error(json.error || 'Erro na requisi├º├úo GET.');
+  let json; try{ json=JSON.parse(text); }catch(e){ throw new Error('Resposta inválida: '+text); }
+  if(!json.ok) throw new Error(json.error || 'Erro GET.');
   return json;
 }
-
-async function apiPostBase(baseUrl, action, payload = {}){
-  const res = await fetch(baseUrl, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify({ action, ...payload }) });
+async function apiPostBase(baseUrl, action, payload={}){
+  const res = await fetch(baseUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action,...payload}) });
   const text = await res.text();
-  let json;
-  try { json = JSON.parse(text); } catch(e) { throw new Error('Resposta inv├ílida do Apps Script: ' + text); }
-  if(!json.ok) throw new Error(json.error || 'Erro na requisi├º├úo POST.');
+  let json; try{ json=JSON.parse(text); }catch(e){ throw new Error('Resposta inválida: '+text); }
+  if(!json.ok) throw new Error(json.error || 'Erro POST.');
   return json;
 }
+async function apiGet(action, params={}){ return apiGetBase(API_URL, action, params) }
+async function apiPost(action, payload={}){ return apiPostBase(API_URL, action, payload) }
+async function apiGetGastos(action, params={}){ return apiGetBase(API_GASTOS_URL, action, params) }
+async function apiPostGastos(action, payload={}){ return apiPostBase(API_GASTOS_URL, action, payload) }
 
-async function apiGet(action, params = {}){ return apiGetBase(API_URL, action, params); }
-async function apiPost(action, payload = {}){ return apiPostBase(API_URL, action, payload); }
-async function apiGetGastos(action, params = {}){ return apiGetBase(API_GASTOS_URL, action, params); }
-async function apiPostGastos(action, payload = {}){ return apiPostBase(API_GASTOS_URL, action, payload); }
-
+// ── Seletores de período ──────────────────────────────────────
 function fillYearMonthSelectors(){
   const currentYear = Math.max(new Date().getFullYear() + 3, 2032);
   const years = [];
   for(let y=2026; y<=currentYear; y++) years.push(y);
-  $('dashAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
-  $('payAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
-  $('gastAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
-  $('dashMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
-  $('payMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
-  $('gastMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+  ['dashAno','payAno','gastAno'].forEach(id => {
+    $(id).innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+  });
+  ['dashMes','payMes','gastMes'].forEach(id => {
+    $(id).innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+  });
   syncSelectorsFromState();
 }
-
 function syncSelectorsFromState(){
-  $('dashAno').value = String(state.dashboardRef.ano);
-  $('dashMes').value = String(state.dashboardRef.mes);
-  $('payAno').value = String(state.paymentsRef.ano);
-  $('payMes').value = String(state.paymentsRef.mes);
-  $('gastAno').value = String(state.gastosRef.ano);
-  $('gastMes').value = String(state.gastosRef.mes);
+  $('dashAno').value = String(state.dashboardRef.ano);  $('dashMes').value = String(state.dashboardRef.mes);
+  $('payAno').value  = String(state.paymentsRef.ano);   $('payMes').value  = String(state.paymentsRef.mes);
+  $('gastAno').value = String(state.gastosRef.ano);     $('gastMes').value = String(state.gastosRef.mes);
 }
 
 function activateTab(name){
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === name));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${name}`));
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab===name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id===`tab-${name}`));
 }
 
+// ── Carregamento de dados ─────────────────────────────────────
 async function loadJogadores(){
   setLoadingArea('jogadoresLoading', true, 'Consultando jogadores...');
-  try {
-    const json = await apiGet('listarJogadores');
-    state.jogadores = Array.isArray(json.data) ? json.data : [];
-    renderJogadores();
-  } finally {
-    setLoadingArea('jogadoresLoading', false);
-  }
+  try { const json = await apiGet('listarJogadores'); state.jogadores = Array.isArray(json.data) ? json.data : []; renderJogadores(); }
+  finally { setLoadingArea('jogadoresLoading', false); }
 }
 
 async function loadDashboard(){
   setLoadingArea('dashLoading', true, 'Consultando dashboard...');
   try {
-    const json = await apiGet('dashboard', { ano: state.dashboardRef.ano, mes: state.dashboardRef.mes });
+    // Busca dados principais e gastos em paralelo
+    const [json, gastosJson] = await Promise.all([
+      apiGet('dashboard', { ano: state.dashboardRef.ano, mes: state.dashboardRef.mes }),
+      apiGetGastos('dashboard', { ano: state.dashboardRef.ano, mes: state.dashboardRef.mes }).catch(() => ({ data: null }))
+    ]);
     state.dashboard = json.data || null;
+    // Injeta gastos_mes no objeto do dashboard para o renderDashboard usá-lo
+    if(state.dashboard) {
+      state.dashboard.gastos_mes = gastosJson.data ? Number(gastosJson.data.gastos_mes || 0) : 0;
+    }
     renderDashboard();
     renderCharts();
     setSyncStatus('Dashboard atualizado', 'success');
-  } finally {
-    setLoadingArea('dashLoading', false);
-  }
+  } finally { setLoadingArea('dashLoading', false); }
 }
 
 async function loadCompetencia(){
-  setLoadingArea('competenciaLoading', true, 'Consultando compet├¬ncia...');
+  setLoadingArea('competenciaLoading', true, 'Consultando competência...');
   setLoadingArea('pagamentosLoading', true);
   setLoadingArea('naoPagantesLoading', true);
   try {
     const json = await apiGet('listarPagamentosPorCompetencia', { ano: state.paymentsRef.ano, mes: state.paymentsRef.mes });
     state.competencia = json.data || { pagamentos: [], nao_pagantes: [] };
     state.selectedNaoPagantes.clear();
-    renderCompetenciaSummary();
-    renderPagamentos();
-    renderNaoPagantes();
-    setSyncStatus('Compet├¬ncia carregada', 'success');
+    renderCompetenciaSummary(); renderPagamentos(); renderNaoPagantes();
+    setSyncStatus('Competência carregada', 'success');
   } finally {
     setLoadingArea('competenciaLoading', false);
     setLoadingArea('pagamentosLoading', false);
     setLoadingArea('naoPagantesLoading', false);
+  }
+}
+
+async function loadGastos(){
+  setLoadingArea('gastosTableLoading', true, 'Consultando gastos...');
+  try {
+    const json = await apiGetGastos('listarGastos', { ano: state.gastosRef.ano, mes: state.gastosRef.mes });
+    // A API retorna { ok: true, data: { gastos: [...], total: N } }
+    const raw = json.data;
+    state.gastos = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.gastos) ? raw.gastos : []);
+    renderGastos();
+    updateGastosSummary();
+    setSyncStatus('Gastos atualizados', 'success');
+  } catch(error) {
+    showMessage($('gastoMsg'), `Falha ao carregar gastos: ${error.message}`, 'error');
+    setSyncStatus('Erro ao carregar gastos', 'error');
+  } finally {
+    setLoadingArea('gastosTableLoading', false);
   }
 }
 
@@ -527,140 +579,157 @@ async function syncAll(){
     await Promise.all([loadJogadores(), loadDashboard(), loadCompetencia(), loadGastos()]);
     setSyncStatus('Sincronizado com sucesso', 'success');
   } catch(error) {
-    setSyncStatus('Falha na sincroniza├º├úo', 'error');
+    setSyncStatus('Falha na sincronização', 'error');
     showMessage($('infoMsg'), error.message, 'error');
   } finally {
     setActionButtonsDisabled(false);
   }
 }
 
+// ── Renderização ──────────────────────────────────────────────
 function renderDashboard(){
   const dash = state.dashboard; if(!dash) return;
-  const gastosLocais = state.gastos.filter(g => Number(g.ano) === state.dashboardRef.ano && Number(g.mes) === state.dashboardRef.mes).reduce((acc,g) => acc + Number(g.valor || 0), 0);
-  const gastosMes = Number((dash.gastos_mes ?? dash.total_gastos_mes ?? gastosLocais) || 0);
-  const saldoLiquidoMes = Number(dash.receita_mes || 0) - gastosMes;
-  $('kpiReceitaMes').textContent = fmtCurrency(dash.receita_mes);
-  $('kpiReceitaAno').textContent = fmtCurrency(dash.receita_ano);
-  $('kpiReceitaTotal').textContent = fmtCurrency(dash.receita_total);
-  $('kpiGastosMes').textContent = fmtCurrency(gastosMes);
-  $('kpiSaldoLiquidoMes').textContent = fmtCurrency(saldoLiquidoMes);
+  const gastosMes = Number(dash.gastos_mes || 0);
+  const saldo = Number(dash.receita_mes || 0) - gastosMes;
+  $('kpiReceitaMes').textContent     = fmtCurrency(dash.receita_mes);
+  $('kpiReceitaAno').textContent     = fmtCurrency(dash.receita_ano);
+  $('kpiReceitaTotal').textContent   = fmtCurrency(dash.receita_total);
+  $('kpiGastosMes').textContent      = fmtCurrency(gastosMes);
+  $('kpiSaldoLiquidoMes').textContent = fmtCurrency(saldo);
   $('kpiJogadoresAtivos').textContent = String(dash.jogadores_ativos || 0);
-  $('kpiNaoPagantes').textContent = String(dash.nao_pagantes_mes || 0);
-  $('kpiPagosMes').textContent = String(dash.pagamentos_pagos_mes || 0);
-  $('kpiPendentesMes').textContent = String(dash.pagamentos_pendentes_mes || 0);
-  $('kpiAtrasados').textContent = String(dash.pagamentos_atrasados || 0);
+  $('kpiNaoPagantes').textContent     = String(dash.nao_pagantes_mes || 0);
+  $('kpiPagosMes').textContent        = String(dash.pagamentos_pagos_mes || 0);
+  $('kpiPendentesMes').textContent    = String(dash.pagamentos_pendentes_mes || 0);
+  $('kpiAtrasados').textContent       = String(dash.pagamentos_atrasados || 0);
 
   const resumo = Array.isArray(dash.resumo_mensal) ? dash.resumo_mensal : [];
-  $('dashboardResumoBody').innerHTML = resumo.length ? resumo.map(item => `<tr><td>${MONTH_NAMES[(item.mes || 1) - 1]}</td><td>${fmtCurrency(item.total_recebido)}</td></tr>`).join('') : `<tr><td colspan="2"><div class="empty">Sem dados.</div></td></tr>`;
+  $('dashboardResumoBody').innerHTML = resumo.length
+    ? resumo.map(i => `<tr><td>${MONTH_NAMES[(i.mes||1)-1]}</td><td>${fmtCurrency(i.total_recebido)}</td></tr>`).join('')
+    : `<tr><td colspan="2"><div class="empty">Sem dados.</div></td></tr>`;
 
   const preview = Array.isArray(dash.nao_pagantes_preview) ? dash.nao_pagantes_preview : [];
-  $('dashboardNaoPagantesBody').innerHTML = preview.length ? preview.map(item => `<tr><td>${escapeHtml(item.Nome_Jogador || '-')}</td><td>${escapeHtml(item.Nickname || '-')}</td><td>${escapeHtml(item.Meses_Em_Aberto_Ate_Competencia || 0)}</td></tr>`).join('') : `<tr><td colspan="3"><div class="empty">Nenhum n├úo pagante nesta compet├¬ncia.</div></td></tr>`;
+  $('dashboardNaoPagantesBody').innerHTML = preview.length
+    ? preview.map(i => `<tr><td>${escapeHtml(i.Nome_Jogador||'-')}</td><td>${escapeHtml(i.Nickname||'-')}</td><td>${escapeHtml(i.Meses_Em_Aberto_Ate_Competencia||0)}</td></tr>`).join('')
+    : `<tr><td colspan="3"><div class="empty">Nenhum não pagante nesta competência.</div></td></tr>`;
 }
 
 function renderCharts(){
   if(!state.dashboard) return;
   const resumo = Array.isArray(state.dashboard.resumo_mensal) ? state.dashboard.resumo_mensal : [];
-  const resumoLabels = resumo.map(item => MONTH_NAMES[(item.mes || 1) - 1]);
-  const resumoValues = resumo.map(item => Number(item.total_recebido || 0));
-
   if(state.charts.resumo) state.charts.resumo.destroy();
   state.charts.resumo = new Chart($('chartResumoMensal'), {
     type:'bar',
-    data:{ labels:resumoLabels, datasets:[{ label:'Total recebido', data:resumoValues }] },
-    options:{ responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120, plugins:{ legend:{ labels:{ color:'#eef3fb' } } },
+    data:{ labels:resumo.map(i => MONTH_NAMES[(i.mes||1)-1]), datasets:[{ label:'Total recebido', data:resumo.map(i => Number(i.total_recebido||0)) }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120,
+      plugins:{ legend:{ labels:{ color:'#eef3fb' } } },
       scales:{ x:{ ticks:{ color:'#cbd8ee' }, grid:{ color:'rgba(255,255,255,.05)' } }, y:{ ticks:{ color:'#cbd8ee' }, grid:{ color:'rgba(255,255,255,.05)' } } } }
   });
-
   const status = state.dashboard.grafico_status_competencia || {};
   if(state.charts.status) state.charts.status.destroy();
   state.charts.status = new Chart($('chartStatusCompetencia'), {
     type:'doughnut',
-    data:{ labels:['Pagos','Pendentes','Atrasados','Isentos','N├úo pagantes'], datasets:[{ data:[Number(status.pagos||0),Number(status.pendentes||0),Number(status.atrasados||0),Number(status.isentos||0),Number(status.nao_pagantes||0)] }] },
+    data:{ labels:['Pagos','Pendentes','Atrasados','Isentos','Não pagantes'], datasets:[{ data:[Number(status.pagos||0),Number(status.pendentes||0),Number(status.atrasados||0),Number(status.isentos||0),Number(status.nao_pagantes||0)] }] },
     options:{ responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120, plugins:{ legend:{ labels:{ color:'#eef3fb' } } } }
   });
 }
 
 function renderCompetenciaSummary(){
-  const pagamentos = state.competencia.pagamentos || [];
-  const naoPagantes = state.competencia.nao_pagantes || [];
-  const pagos = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pago').length;
-  const pendentes = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pendente').length;
-  const atrasados = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Atrasado').length;
-  const recebido = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pago').reduce((acc,p) => acc + Number(p.Valor || 0), 0);
-  $('cmpPagos').textContent = String(pagos);
-  $('cmpPendentes').textContent = String(pendentes);
-  $('cmpAtrasados').textContent = String(atrasados);
-  $('cmpNaoPagantes').textContent = String(naoPagantes.length);
-  $('cmpValorRecebido').textContent = fmtCurrency(recebido);
+  const pags = state.competencia.pagamentos || [];
+  const nao  = state.competencia.nao_pagantes || [];
+  $('cmpPagos').textContent    = String(pags.filter(p => p.Status_Pagamento==='Pago').length);
+  $('cmpPendentes').textContent = String(pags.filter(p => p.Status_Pagamento==='Pendente').length);
+  $('cmpAtrasados').textContent = String(pags.filter(p => p.Status_Pagamento==='Atrasado').length);
+  $('cmpNaoPagantes').textContent = String(nao.length);
+  $('cmpValorRecebido').textContent = fmtCurrency(pags.filter(p => p.Status_Pagamento==='Pago').reduce((acc,p)=>acc+Number(p.Valor||0),0));
 }
 
 function renderNaoPagantes(){
-  const tbody = $('naoPagantesBody');
   const q = $('filtroNaoPagantes').value.trim().toLowerCase();
   let lista = [...(state.competencia.nao_pagantes || [])];
-  if(q){ lista = lista.filter(item => String(item.Player_ID || '').toLowerCase().includes(q) || String(item.Nome_Jogador || '').toLowerCase().includes(q) || String(item.Nickname || '').toLowerCase().includes(q)); }
-  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="7"><div class="empty">Nenhum n├úo pagante encontrado.</div></td></tr>`; return; }
-  tbody.innerHTML = lista.map(item => {
+  if(q) lista = lista.filter(i => [i.Player_ID,i.Nome_Jogador,i.Nickname].some(v => String(v||'').toLowerCase().includes(q)));
+  $('naoPagantesBody').innerHTML = lista.length ? lista.map(item => {
     const checked = state.selectedNaoPagantes.has(String(item.Player_ID)) ? 'checked' : '';
     return `<tr>
       <td class="checkbox-cell"><input type="checkbox" data-naopagante-check="1" value="${escapeHtml(item.Player_ID)}" ${checked} /></td>
-      <td>${escapeHtml(item.Player_ID || '-')}</td>
-      <td>${escapeHtml(item.Nome_Jogador || '-')}</td>
-      <td>${escapeHtml(item.Nickname || '-')}</td>
-      <td>${escapeHtml(item.Meses_Em_Aberto_Ate_Competencia || 0)}</td>
-      <td>${escapeHtml(item.Ultimo_Pagamento_Competencia || '-')}</td>
-      <td><div class="inline-actions"><button class="btn btn-success btn-sm" type="button" data-action-btn="1" data-quick-pay="${escapeHtml(item.Player_ID)}">Pagamento r├ípido</button></div></td>
+      <td>${escapeHtml(item.Player_ID||'-')}</td><td>${escapeHtml(item.Nome_Jogador||'-')}</td>
+      <td>${escapeHtml(item.Nickname||'-')}</td><td>${escapeHtml(item.Meses_Em_Aberto_Ate_Competencia||0)}</td>
+      <td>${escapeHtml(item.Ultimo_Pagamento_Competencia||'-')}</td>
+      <td><div class="inline-actions"><button class="btn btn-success btn-sm" type="button" data-action-btn="1" data-quick-pay="${escapeHtml(item.Player_ID)}">Pagamento rápido</button></div></td>
     </tr>`;
-  }).join('');
+  }).join('') : `<tr><td colspan="7"><div class="empty">Nenhum não pagante encontrado.</div></td></tr>`;
 }
 
 function renderPagamentos(){
-  const tbody = $('pagamentosBody');
   const q = $('filtroPagamentos').value.trim().toLowerCase();
   let lista = [...(state.competencia.pagamentos || [])];
-  if(q){ lista = lista.filter(item => String(item.Pagamento_ID || '').toLowerCase().includes(q) || String(item.Nome_Jogador || '').toLowerCase().includes(q) || String(item.Nickname || '').toLowerCase().includes(q) || String(item.Referencia || '').toLowerCase().includes(q)); }
-  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="8"><div class="empty">Nenhum pagamento encontrado para esta compet├¬ncia.</div></td></tr>`; return; }
-  tbody.innerHTML = lista.map(item => `<tr>
-    <td>${escapeHtml(item.Pagamento_ID || '-')}</td>
-    <td><div>${escapeHtml(item.Nome_Jogador || '-')}</div><div class="muted small">${escapeHtml(item.Nickname || '-')}</div></td>
-    <td>${fmtCurrency(item.Valor)}</td>
-    <td>${renderStatusPagamento(item.Status_Pagamento)}</td>
-    <td>${fmtDate(item.Data_Pagamento)}</td>
-    <td>${escapeHtml(item.Referencia || '-')}</td>
-    <td>${escapeHtml(item.Observacoes || '-')}</td>
+  if(q) lista = lista.filter(i => [i.Pagamento_ID,i.Nome_Jogador,i.Nickname,i.Referencia].some(v => String(v||'').toLowerCase().includes(q)));
+  $('pagamentosBody').innerHTML = lista.length ? lista.map(item => `<tr>
+    <td>${escapeHtml(item.Pagamento_ID||'-')}</td>
+    <td><div>${escapeHtml(item.Nome_Jogador||'-')}</div><div class="muted small">${escapeHtml(item.Nickname||'-')}</div></td>
+    <td>${fmtCurrency(item.Valor)}</td><td>${renderStatusPagamento(item.Status_Pagamento)}</td>
+    <td>${fmtDate(item.Data_Pagamento)}</td><td>${escapeHtml(item.Referencia||'-')}</td>
+    <td>${escapeHtml(item.Observacoes||'-')}</td>
     <td><div class="inline-actions">
       <button class="btn btn-secondary btn-sm" type="button" data-action-btn="1" data-edit-payment="${escapeHtml(item.Pagamento_ID)}">Editar</button>
       <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-payment="${escapeHtml(item.Pagamento_ID)}">Excluir</button>
     </div></td>
-  </tr>`).join('');
+  </tr>`).join('') : `<tr><td colspan="8"><div class="empty">Nenhum pagamento encontrado para esta competência.</div></td></tr>`;
 }
 
 function renderJogadores(){
-  const tbody = $('jogadoresBody');
   const q = $('filtroJogadorTexto').value.trim().toLowerCase();
   const status = $('filtroJogadorStatus').value;
   let lista = [...state.jogadores];
-  if(q){ lista = lista.filter(j => String(j.Player_ID || '').toLowerCase().includes(q) || String(j.Nome_Jogador || '').toLowerCase().includes(q) || String(j.Nickname || '').toLowerCase().includes(q)); }
-  if(status){ lista = lista.filter(j => String(j.Assinatura_Status || '') === status); }
-  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="7"><div class="empty">Nenhum jogador encontrado.</div></td></tr>`; return; }
-  tbody.innerHTML = lista.map(j => `<tr>
-    <td>${escapeHtml(j.Player_ID || '-')}</td>
-    <td>${escapeHtml(j.Nome_Jogador || '-')}</td>
-    <td>${escapeHtml(j.Nickname || '-')}</td>
-    <td>${renderAssinatura(j.Assinatura_Status)}</td>
-    <td>${fmtDate(j.Data_Cadastro)}</td>
-    <td>${escapeHtml(j.Observacoes || '-')}</td>
+  if(q) lista = lista.filter(j => [j.Player_ID,j.Nome_Jogador,j.Nickname].some(v => String(v||'').toLowerCase().includes(q)));
+  if(status) lista = lista.filter(j => String(j.Assinatura_Status||'')===status);
+  $('jogadoresBody').innerHTML = lista.length ? lista.map(j => `<tr>
+    <td>${escapeHtml(j.Player_ID||'-')}</td><td>${escapeHtml(j.Nome_Jogador||'-')}</td>
+    <td>${escapeHtml(j.Nickname||'-')}</td><td>${renderAssinatura(j.Assinatura_Status)}</td>
+    <td>${fmtDate(j.Data_Cadastro)}</td><td>${escapeHtml(j.Observacoes||'-')}</td>
     <td><div class="inline-actions">
       <button class="btn btn-secondary btn-sm" type="button" data-action-btn="1" data-edit-player="${escapeHtml(j.Player_ID)}">Editar</button>
       <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-player="${escapeHtml(j.Player_ID)}">Excluir</button>
     </div></td>
-  </tr>`).join('');
+  </tr>`).join('') : `<tr><td colspan="7"><div class="empty">Nenhum jogador encontrado.</div></td></tr>`;
 }
 
+function updateGastosSummary(){
+  const gastosMes = state.gastos; // já filtrado por período no loadGastos
+  const total        = gastosMes.reduce((acc,g)=>acc+Number(gf(g,'Valor','valor')||0),0);
+  const alimentacao  = gastosMes.filter(g=>String(gf(g,'Categoria','categoria'))==='Alimentação').reduce((acc,g)=>acc+Number(gf(g,'Valor','valor')||0),0);
+  const servidores   = gastosMes.filter(g=>String(gf(g,'Categoria','categoria'))==='Servidores').reduce((acc,g)=>acc+Number(gf(g,'Valor','valor')||0),0);
+  const outros       = gastosMes.filter(g=>['Outros','Outros custos'].includes(String(gf(g,'Categoria','categoria')))).reduce((acc,g)=>acc+Number(gf(g,'Valor','valor')||0),0);
+  $('gastTotalMes').textContent  = fmtCurrency(total);
+  $('gastAlimentacao').textContent = fmtCurrency(alimentacao);
+  $('gastServidores').textContent  = fmtCurrency(servidores);
+  $('gastOutros').textContent      = fmtCurrency(outros);
+  $('gastQuantidade').textContent  = String(gastosMes.length);
+}
+
+function renderGastos(){
+  const q   = $('filtroGastos').value.trim().toLowerCase();
+  const cat = $('filtroGastosCategoria').value;
+  let lista = [...state.gastos];
+  if(q)   lista = lista.filter(g => [gf(g,'Descricao','descricao'),gf(g,'Categoria','categoria')].some(v=>String(v||'').toLowerCase().includes(q)));
+  if(cat) lista = lista.filter(g => String(gf(g,'Categoria','categoria'))===cat);
+  updateGastosSummary();
+  $('gastosBody').innerHTML = lista.length ? lista.map(item => `<tr>
+    <td>${fmtDate(gf(item,'Data_Gasto','data_gasto'))}</td>
+    <td><span class="badge free">${escapeHtml(gf(item,'Categoria','categoria')||'-')}</span></td>
+    <td>${escapeHtml(gf(item,'Descricao','descricao')||'-')}</td>
+    <td>${escapeHtml(gf(item,'Referencia','referencia')||'-')}</td>
+    <td><strong>${fmtCurrency(gf(item,'Valor','valor'))}</strong></td>
+    <td><div class="inline-actions">
+      <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-gasto="${escapeHtml(gf(item,'Gasto_ID','gasto_id'))}">Excluir</button>
+    </div></td>
+  </tr>`).join('') : `<tr><td colspan="6"><div class="empty">Nenhum gasto encontrado para este período.</div></td></tr>`;
+}
+
+// ── Ações de pagamento ────────────────────────────────────────
 function getQuickPayloadForPlayer(playerId){
   return {
     player_id: playerId,
-    valor: Number($('quickValor').value || 0),
+    valor: Number($('quickValor').value||0),
     competencia_ano: state.paymentsRef.ano,
     competencia_mes: state.paymentsRef.mes,
     status_pagamento: $('quickStatus').value,
@@ -672,82 +741,63 @@ function getQuickPayloadForPlayer(playerId){
 
 async function quickPayPlayer(playerId){
   try {
-    setActionButtonsDisabled(true);
-    setSyncStatus('Registrando pagamento...', 'warn');
+    setActionButtonsDisabled(true); setSyncStatus('Registrando pagamento...','warn');
     const json = await apiPost('registrarPagamento', getQuickPayloadForPlayer(playerId));
-    showMessage($('pagamentoMsg'), `${json.message}
-Pagamento: ${json.data.pagamento_id}`, 'success');
-    state.dashboardRef.ano = state.paymentsRef.ano;
-    state.dashboardRef.mes = state.paymentsRef.mes;
+    showMessage($('pagamentoMsg'), `${json.message}\nPagamento: ${json.data.pagamento_id}`, 'success');
+    state.dashboardRef.ano = state.paymentsRef.ano; state.dashboardRef.mes = state.paymentsRef.mes;
     syncSelectorsFromState();
     await Promise.all([loadCompetencia(), loadDashboard()]);
-  } catch(error) {
-    showMessage($('pagamentoMsg'), error.message, 'error');
-    setSyncStatus('Falha no registro', 'error');
-  } finally {
-    setActionButtonsDisabled(false);
-  }
+  } catch(error) { showMessage($('pagamentoMsg'), error.message, 'error'); setSyncStatus('Falha no registro','error'); }
+  finally { setActionButtonsDisabled(false); }
 }
 
 async function registerBulkSelected(){
   const ids = [...state.selectedNaoPagantes];
-  if(!ids.length){ showMessage($('pagamentoMsg'), 'Selecione ao menos um jogador.', 'error'); return; }
+  if(!ids.length){ showMessage($('pagamentoMsg'),'Selecione ao menos um jogador.','error'); return; }
   try {
-    setLoadingArea('loteLoading', true, 'Registrando pagamentos em lote...');
-    setActionButtonsDisabled(true);
-    const pagamentos = ids.map(playerId => getQuickPayloadForPlayer(playerId));
-    const json = await apiPost('registrarPagamentosEmLote', { pagamentos });
-    showMessage($('pagamentoMsg'), `${json.message}
-Quantidade: ${json.data.quantidade}`, 'success');
-    state.dashboardRef.ano = state.paymentsRef.ano;
-    state.dashboardRef.mes = state.paymentsRef.mes;
+    setLoadingArea('loteLoading', true, 'Registrando pagamentos em lote...'); setActionButtonsDisabled(true);
+    const json = await apiPost('registrarPagamentosEmLote', { pagamentos: ids.map(id => getQuickPayloadForPlayer(id)) });
+    showMessage($('pagamentoMsg'), `${json.message}\nQuantidade: ${json.data.quantidade}`, 'success');
+    state.dashboardRef.ano = state.paymentsRef.ano; state.dashboardRef.mes = state.paymentsRef.mes;
     syncSelectorsFromState();
     await Promise.all([loadCompetencia(), loadDashboard()]);
-  } catch(error) {
-    showMessage($('pagamentoMsg'), error.message, 'error');
-  } finally {
-    setLoadingArea('loteLoading', false);
-    setActionButtonsDisabled(false);
-  }
+  } catch(error) { showMessage($('pagamentoMsg'), error.message, 'error'); }
+  finally { setLoadingArea('loteLoading', false); setActionButtonsDisabled(false); }
 }
 
-function findPlayerById(id){ return state.jogadores.find(j => String(j.Player_ID) === String(id)) || null; }
-function findPaymentById(id){ return (state.competencia.pagamentos || []).find(p => String(p.Pagamento_ID) === String(id)) || null; }
+async function deleteGasto(gastoId){
+  if(!confirm('Excluir este gasto?')) return;
+  try {
+    setActionButtonsDisabled(true);
+    await apiPostGastos('excluirGasto', { gasto_id: gastoId });
+    await Promise.all([loadGastos(), loadDashboard()]);
+  } catch(error) { showMessage($('gastoMsg'), error.message, 'error'); }
+  finally { setActionButtonsDisabled(false); }
+}
+
+function findPlayerById(id){ return state.jogadores.find(j => String(j.Player_ID)===String(id)) || null }
+function findPaymentById(id){ return (state.competencia.pagamentos||[]).find(p => String(p.Pagamento_ID)===String(id)) || null }
 
 function fillEditPlayerModal(playerId){
-  const player = findPlayerById(playerId); if(!player) return;
-  $('editPlayerId').value = player.Player_ID || '';
-  $('editPlayerNome').value = player.Nome_Jogador || '';
-  $('editPlayerNickname').value = player.Nickname || '';
-  $('editPlayerStatus').value = player.Assinatura_Status || 'Ativa';
-  $('editPlayerObs').value = player.Observacoes || '';
-  openModal('player');
+  const p = findPlayerById(playerId); if(!p) return;
+  $('editPlayerId').value = p.Player_ID||''; $('editPlayerNome').value = p.Nome_Jogador||'';
+  $('editPlayerNickname').value = p.Nickname||''; $('editPlayerStatus').value = p.Assinatura_Status||'Ativa';
+  $('editPlayerObs').value = p.Observacoes||''; openModal('player');
 }
 
 function fillEditPaymentModal(paymentId){
-  const payment = findPaymentById(paymentId); if(!payment) return;
-  $('editPagamentoId').value = payment.Pagamento_ID || '';
-  $('editPagamentoAno').value = Number(payment.Competencia_Ano || state.paymentsRef.ano);
-  $('editPagamentoMes').value = Number(payment.Competencia_Mes || state.paymentsRef.mes);
-  $('editPagamentoValor').value = Number(payment.Valor || 0);
-  $('editPagamentoStatus').value = payment.Status_Pagamento || 'Pago';
-  $('editPagamentoData').value = toInputDate(payment.Data_Pagamento);
-  $('editPagamentoRef').value = payment.Referencia || '';
-  $('editPagamentoObs').value = payment.Observacoes || '';
-  openModal('payment');
+  const p = findPaymentById(paymentId); if(!p) return;
+  $('editPagamentoId').value = p.Pagamento_ID||''; $('editPagamentoAno').value = Number(p.Competencia_Ano||state.paymentsRef.ano);
+  $('editPagamentoMes').value = Number(p.Competencia_Mes||state.paymentsRef.mes); $('editPagamentoValor').value = Number(p.Valor||0);
+  $('editPagamentoStatus').value = p.Status_Pagamento||'Pago'; $('editPagamentoData').value = toInputDate(p.Data_Pagamento);
+  $('editPagamentoRef').value = p.Referencia||''; $('editPagamentoObs').value = p.Observacoes||''; openModal('payment');
 }
 
 async function deletePlayer(playerId){
-  if(!confirm('Excluir este jogador?\nSe ele tiver pagamentos vinculados, eles tamb├®m ser├úo exclu├¡dos.')) return;
-  try {
-    setActionButtonsDisabled(true);
-    await apiPost('excluirJogador', { player_id: playerId, excluir_pagamentos_relacionados: true });
-    await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
-  } catch(error) {
-    showMessage($('jogadorMsg'), error.message, 'error');
-  } finally {
-    setActionButtonsDisabled(false);
-  }
+  if(!confirm('Excluir este jogador?\nSe ele tiver pagamentos vinculados, eles também serão excluídos.')) return;
+  try { setActionButtonsDisabled(true); await apiPost('excluirJogador', { player_id: playerId, excluir_pagamentos_relacionados: true }); await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]); }
+  catch(error){ showMessage($('jogadorMsg'), error.message, 'error'); }
+  finally { setActionButtonsDisabled(false); }
 }
 
 async function deletePayment(paymentId){
@@ -755,27 +805,25 @@ async function deletePayment(paymentId){
   try {
     setActionButtonsDisabled(true);
     await apiPost('excluirPagamento', { pagamento_id: paymentId });
-    state.dashboardRef.ano = state.paymentsRef.ano;
-    state.dashboardRef.mes = state.paymentsRef.mes;
+    state.dashboardRef.ano = state.paymentsRef.ano; state.dashboardRef.mes = state.paymentsRef.mes;
     syncSelectorsFromState();
     await Promise.all([loadCompetencia(), loadDashboard()]);
-  } catch(error) {
-    showMessage($('pagamentoMsg'), error.message, 'error');
-  } finally {
-    setActionButtonsDisabled(false);
-  }
+  } catch(error){ showMessage($('pagamentoMsg'), error.message, 'error'); }
+  finally { setActionButtonsDisabled(false); }
 }
 
+// ── Eventos ───────────────────────────────────────────────────
 function bindEvents(){
   document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
 
   document.addEventListener('click', async (e) => {
-    const quickBtn = e.target.closest('[data-quick-pay]'); if(quickBtn) return quickPayPlayer(quickBtn.getAttribute('data-quick-pay'));
-    const editPlayerBtn = e.target.closest('[data-edit-player]'); if(editPlayerBtn) return fillEditPlayerModal(editPlayerBtn.getAttribute('data-edit-player'));
-    const deletePlayerBtn = e.target.closest('[data-delete-player]'); if(deletePlayerBtn) return deletePlayer(deletePlayerBtn.getAttribute('data-delete-player'));
-    const editPaymentBtn = e.target.closest('[data-edit-payment]'); if(editPaymentBtn) return fillEditPaymentModal(editPaymentBtn.getAttribute('data-edit-payment'));
-    const deletePaymentBtn = e.target.closest('[data-delete-payment]'); if(deletePaymentBtn) return deletePayment(deletePaymentBtn.getAttribute('data-delete-payment'));
-    const close = e.target.closest('[data-close-modal]'); if(close) return closeModal(close.getAttribute('data-close-modal'));
+    const quickBtn       = e.target.closest('[data-quick-pay]');       if(quickBtn)       return quickPayPlayer(quickBtn.getAttribute('data-quick-pay'));
+    const editPlayerBtn  = e.target.closest('[data-edit-player]');     if(editPlayerBtn)  return fillEditPlayerModal(editPlayerBtn.getAttribute('data-edit-player'));
+    const delPlayerBtn   = e.target.closest('[data-delete-player]');   if(delPlayerBtn)   return deletePlayer(delPlayerBtn.getAttribute('data-delete-player'));
+    const editPayBtn     = e.target.closest('[data-edit-payment]');    if(editPayBtn)     return fillEditPaymentModal(editPayBtn.getAttribute('data-edit-payment'));
+    const delPayBtn      = e.target.closest('[data-delete-payment]');  if(delPayBtn)      return deletePayment(delPayBtn.getAttribute('data-delete-payment'));
+    const delGastoBtn    = e.target.closest('[data-delete-gasto]');    if(delGastoBtn)    return deleteGasto(delGastoBtn.getAttribute('data-delete-gasto'));
+    const closeBtn       = e.target.closest('[data-close-modal]');     if(closeBtn)       return closeModal(closeBtn.getAttribute('data-close-modal'));
   });
 
   document.addEventListener('change', (e) => {
@@ -791,29 +839,21 @@ function bindEvents(){
   $('btnTestarConexao').addEventListener('click', async () => {
     try {
       const json = await apiGet('health');
-      showMessage($('infoMsg'), json.message || 'Conex├úo OK.', 'success');
-      setSyncStatus('Conex├úo OK', 'success');
-    } catch(error) {
-      showMessage($('infoMsg'), error.message, 'error');
-      setSyncStatus('Falha na conex├úo', 'error');
-    }
+      showMessage($('infoMsg'), json.message||'Conexão OK.', 'success');
+      setSyncStatus('Conexão OK', 'success');
+    } catch(error){ showMessage($('infoMsg'), error.message, 'error'); setSyncStatus('Falha na conexão','error'); }
   });
 
   $('btnAplicarDashboardPeriodo').addEventListener('click', async () => {
-    state.dashboardRef.ano = Number($('dashAno').value);
-    state.dashboardRef.mes = Number($('dashMes').value);
+    state.dashboardRef.ano = Number($('dashAno').value); state.dashboardRef.mes = Number($('dashMes').value);
     await loadDashboard();
   });
-
   $('btnAplicarCompetenciaPeriodo').addEventListener('click', async () => {
-    state.paymentsRef.ano = Number($('payAno').value);
-    state.paymentsRef.mes = Number($('payMes').value);
+    state.paymentsRef.ano = Number($('payAno').value); state.paymentsRef.mes = Number($('payMes').value);
     await loadCompetencia();
   });
-
   $('btnAplicarGastosPeriodo').addEventListener('click', async () => {
-    state.gastosRef.ano = Number($('gastAno').value);
-    state.gastosRef.mes = Number($('gastMes').value);
+    state.gastosRef.ano = Number($('gastAno').value); state.gastosRef.mes = Number($('gastMes').value);
     await loadGastos();
   });
 
@@ -822,250 +862,90 @@ function bindEvents(){
   $('filtroGastos').addEventListener('input', renderGastos);
   $('filtroGastosCategoria').addEventListener('change', renderGastos);
 
-  $('btnSelecionarTodosNaoPagantes').addEventListener('click', () => {
-    (state.competencia.nao_pagantes || []).forEach(item => state.selectedNaoPagantes.add(String(item.Player_ID)));
-    renderNaoPagantes();
-  });
-
-  $('btnLimparSelecaoNaoPagantes').addEventListener('click', () => {
-    state.selectedNaoPagantes.clear();
-    renderNaoPagantes();
-  });
-
+  $('btnSelecionarTodosNaoPagantes').addEventListener('click', () => { (state.competencia.nao_pagantes||[]).forEach(i => state.selectedNaoPagantes.add(String(i.Player_ID))); renderNaoPagantes(); });
+  $('btnLimparSelecaoNaoPagantes').addEventListener('click', () => { state.selectedNaoPagantes.clear(); renderNaoPagantes(); });
   $('btnRegistrarLote').addEventListener('click', registerBulkSelected);
+  $('btnFiltrarGastos').addEventListener('click', renderGastos);
+  $('btnLimparFiltroGastos').addEventListener('click', () => { $('filtroGastos').value=''; $('filtroGastosCategoria').value=''; renderGastos(); });
+  $('btnFiltrarJogadores').addEventListener('click', renderJogadores);
+  $('btnLimparFiltroJogadores').addEventListener('click', () => { $('filtroJogadorTexto').value=''; $('filtroJogadorStatus').value=''; renderJogadores(); });
+
+  // Formulário: registrar gasto — payload em minúsculas para bater com o Apps Script
+  $('formGasto').addEventListener('submit', async (e) => {
+    e.preventDefault(); hideMessage($('gastoMsg'));
+    try {
+      setActionButtonsDisabled(true);
+      const payload = {
+        descricao:        $('gastDescricao').value.trim(),
+        categoria:        $('gastCategoria').value,
+        valor:            Number($('gastValor').value),
+        data_gasto:       $('gastData').value,
+        competencia_ano:  state.gastosRef.ano,
+        competencia_mes:  state.gastosRef.mes,
+        referencia:       $('gastRef').value.trim(),
+        observacoes:      ''
+      };
+      const json = await apiPostGastos('registrarGasto', payload);
+      showMessage($('gastoMsg'), `${json.message||'Gasto registrado!'}\nID: ${json.data?.gasto_id||''}`, 'success');
+      $('formGasto').reset(); $('gastData').value = getTodayISO();
+      await Promise.all([loadGastos(), loadDashboard()]);
+    } catch(error){ showMessage($('gastoMsg'), error.message, 'error'); }
+    finally { setActionButtonsDisabled(false); }
+  });
 
   $('formJogador').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    hideMessage($('jogadorMsg'));
+    e.preventDefault(); hideMessage($('jogadorMsg'));
     try {
       setActionButtonsDisabled(true);
-      const payload = {
-        nome_jogador: $('jogNome').value.trim(),
-        nickname: $('jogNickname').value.trim(),
-        assinatura_status: $('jogStatus').value,
-        observacoes: $('jogObs').value.trim()
-      };
-      const json = await apiPost('cadastrarJogador', payload);
-      showMessage($('jogadorMsg'), `${json.message}
-ID gerado: ${json.data.player_id}`, 'success');
-      $('formJogador').reset();
-      $('jogStatus').value = 'Ativa';
+      const json = await apiPost('cadastrarJogador', { nome_jogador:$('jogNome').value.trim(), nickname:$('jogNickname').value.trim(), assinatura_status:$('jogStatus').value, observacoes:$('jogObs').value.trim() });
+      showMessage($('jogadorMsg'), `${json.message}\nID gerado: ${json.data.player_id}`, 'success');
+      $('formJogador').reset(); $('jogStatus').value='Ativa';
       await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
-    } catch(error) {
-      showMessage($('jogadorMsg'), error.message, 'error');
-    } finally {
-      setActionButtonsDisabled(false);
-    }
-  });
-
-  $('btnFiltrarJogadores').addEventListener('click', renderJogadores);
-  $('btnLimparFiltroJogadores').addEventListener('click', () => {
-    $('filtroJogadorTexto').value = '';
-    $('filtroJogadorStatus').value = '';
-    renderJogadores();
-  });
-
-  $('btnFiltrarGastos').addEventListener('click', renderGastos);
-  $('btnLimparFiltroGastos').addEventListener('click', () => {
-    $('filtroGastos').value = '';
-    $('filtroGastosCategoria').value = '';
-    renderGastos();
-  });
-
-  $('formGasto').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    hideMessage($('gastoMsg'));
-    try {
-      setActionButtonsDisabled(true);
-      const payload = {
-        Descricao: $('gastDescricao').value.trim(),
-        Categoria: $('gastCategoria').value,
-        Valor: Number($('gastValor').value),
-        Data_Gasto: $('gastData').value,
-        Competencia_Ano: state.gastosRef.ano,
-        Competencia_Mes: state.gastosRef.mes,
-        Referencia: '',
-        Observacoes: ''
-      };
-      let json;
-      try {
-        json = await apiPostGastos('cadastrarGasto', payload);
-      } catch(err) {
-        json = await apiPostGastos('registrarGasto', payload);
-      }
-      if(Array.isArray(json.data)) state.gastos = json.data;
-      showMessage($('gastoMsg'), `${json.message || 'Gasto registrado com sucesso!'}${gastoField(json.data || {}, 'gasto_id', 'Gasto_ID') ? '\nID: ' + gastoField(json.data || {}, 'gasto_id', 'Gasto_ID') : ''}`, 'success');
-      $('formGasto').reset();
-      $('gastCategoria').value = '';
-      $('gastData').value = getTodayISO();
-      await loadGastos();
-      await loadDashboard();
-    } catch(error) {
-      showMessage($('gastoMsg'), error.message, 'error');
-    } finally {
-      setActionButtonsDisabled(false);
-    }
+    } catch(error){ showMessage($('jogadorMsg'), error.message, 'error'); }
+    finally { setActionButtonsDisabled(false); }
   });
 
   $('formEditPlayer').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    hideMessage($('editPlayerMsg'));
+    e.preventDefault(); hideMessage($('editPlayerMsg'));
     try {
       setActionButtonsDisabled(true);
-      const payload = {
-        player_id: $('editPlayerId').value,
-        nome_jogador: $('editPlayerNome').value.trim(),
-        nickname: $('editPlayerNickname').value.trim(),
-        assinatura_status: $('editPlayerStatus').value,
-        observacoes: $('editPlayerObs').value.trim()
-      };
-      const json = await apiPost('editarJogador', payload);
-      showMessage($('editPlayerMsg'), json.message || 'Jogador salvo.', 'success');
+      const json = await apiPost('editarJogador', { player_id:$('editPlayerId').value, nome_jogador:$('editPlayerNome').value.trim(), nickname:$('editPlayerNickname').value.trim(), assinatura_status:$('editPlayerStatus').value, observacoes:$('editPlayerObs').value.trim() });
+      showMessage($('editPlayerMsg'), json.message||'Jogador salvo.', 'success');
       await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
       setTimeout(() => closeModal('player'), 500);
-    } catch(error) {
-      showMessage($('editPlayerMsg'), error.message, 'error');
-    } finally {
-      setActionButtonsDisabled(false);
-    }
+    } catch(error){ showMessage($('editPlayerMsg'), error.message, 'error'); }
+    finally { setActionButtonsDisabled(false); }
   });
 
   $('formEditPayment').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    hideMessage($('editPaymentMsg'));
+    e.preventDefault(); hideMessage($('editPaymentMsg'));
     try {
       setActionButtonsDisabled(true);
-      const payload = {
-        pagamento_id: $('editPagamentoId').value,
-        competencia_ano: Number($('editPagamentoAno').value),
-        competencia_mes: Number($('editPagamentoMes').value),
-        valor: Number($('editPagamentoValor').value || 0),
-        status_pagamento: $('editPagamentoStatus').value,
-        data_pagamento: $('editPagamentoData').value,
-        referencia: $('editPagamentoRef').value.trim(),
-        observacoes: $('editPagamentoObs').value.trim()
-      };
-      const json = await apiPost('editarPagamento', payload);
-      showMessage($('editPaymentMsg'), json.message || 'Pagamento salvo.', 'success');
-      state.dashboardRef.ano = state.paymentsRef.ano;
-      state.dashboardRef.mes = state.paymentsRef.mes;
+      const json = await apiPost('editarPagamento', { pagamento_id:$('editPagamentoId').value, competencia_ano:Number($('editPagamentoAno').value), competencia_mes:Number($('editPagamentoMes').value), valor:Number($('editPagamentoValor').value||0), status_pagamento:$('editPagamentoStatus').value, data_pagamento:$('editPagamentoData').value, referencia:$('editPagamentoRef').value.trim(), observacoes:$('editPagamentoObs').value.trim() });
+      showMessage($('editPaymentMsg'), json.message||'Pagamento salvo.', 'success');
+      state.dashboardRef.ano = state.paymentsRef.ano; state.dashboardRef.mes = state.paymentsRef.mes;
       syncSelectorsFromState();
       await Promise.all([loadCompetencia(), loadDashboard()]);
       setTimeout(() => closeModal('payment'), 500);
-    } catch(error) {
-      showMessage($('editPaymentMsg'), error.message, 'error');
-    } finally {
-      setActionButtonsDisabled(false);
-    }
+    } catch(error){ showMessage($('editPaymentMsg'), error.message, 'error'); }
+    finally { setActionButtonsDisabled(false); }
   });
 }
 
+// ── Bootstrap ─────────────────────────────────────────────────
 function bootstrap(){
   const now = new Date();
   let ano = Math.max(now.getFullYear(), 2026);
   let mes = now.getMonth() + 1;
   if(ano === 2026 && mes < 2) mes = 2;
   state.dashboardRef = { ano, mes };
-  state.paymentsRef = { ano, mes };
-  state.gastosRef = { ano, mes };
+  state.paymentsRef  = { ano, mes };
+  state.gastosRef    = { ano, mes };
   fillYearMonthSelectors();
   $('quickData').value = getTodayISO();
-  $('gastData').value = getTodayISO();
-  loadGastosFromStorage();
+  $('gastData').value  = getTodayISO();
   bindEvents();
-  document.addEventListener('click', async (e) => {
-    const deleteGastoBtn = e.target.closest('[data-delete-gasto]'); if(deleteGastoBtn) return deleteGasto(Number(deleteGastoBtn.getAttribute('data-delete-gasto')));
-  });
   syncAll();
-}
-
-function saveGastosToStorage(){
-  localStorage.setItem('tsurus_gastos', JSON.stringify(state.gastos));
-}
-
-function loadGastosFromStorage(){
-  const stored = localStorage.getItem('tsurus_gastos');
-  if(stored) {
-    try { state.gastos = JSON.parse(stored) || []; } catch(e) { state.gastos = []; }
-  }
-}
-
-async function loadGastos(){
-  setLoadingArea('gastosTableLoading', true, 'Consultando gastos...');
-  try {
-    let json;
-    try {
-      json = await apiGetGastos('listarGastos', { ano: state.gastosRef.ano, mes: state.gastosRef.mes });
-    } catch(err) {
-      json = await apiGetGastos('listarGastosPorCompetencia', { ano: state.gastosRef.ano, mes: state.gastosRef.mes });
-    }
-    state.gastos = Array.isArray(json.data) ? json.data : [];
-    saveGastosToStorage();
-    renderGastos();
-    updateGastosSummary();
-    setSyncStatus('Gastos atualizados', 'success');
-  } catch(error) {
-    showMessage($('gastoMsg'), `Falha ao carregar gastos: ${error.message}`,'error');
-    loadGastosFromStorage();
-    renderGastos();
-    updateGastosSummary();
-    setSyncStatus('Gastos em cache local', 'warn');
-  } finally {
-    setLoadingArea('gastosTableLoading', false);
-  }
-}
-
-function updateGastosSummary(){
-  const periodo = state.gastos.filter(g => Number(gastoField(g, 'ano', 'Competencia_Ano')) === state.gastosRef.ano && Number(gastoField(g, 'mes', 'Competencia_Mes')) === state.gastosRef.mes);
-  const alimentacao = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Alimenta├º├úo').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
-  const servidores = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Servidores').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
-  const outros = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Outros custos').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
-  const total = alimentacao + servidores + outros;
-  $('gastTotalMes').textContent = fmtCurrency(total);
-  $('gastAlimentacao').textContent = fmtCurrency(alimentacao);
-  $('gastServidores').textContent = fmtCurrency(servidores);
-  $('gastOutros').textContent = fmtCurrency(outros);
-  $('gastQuantidade').textContent = String(periodo.length);
-}
-
-function renderGastos(){
-  const tbody = $('gastosBody');
-  const q = $('filtroGastos').value.trim().toLowerCase();
-  const categoria = $('filtroGastosCategoria').value;
-  let lista = state.gastos.filter(g => Number(gastoField(g, 'ano', 'Competencia_Ano')) === state.gastosRef.ano && Number(gastoField(g, 'mes', 'Competencia_Mes')) === state.gastosRef.mes);
-  if(q) { lista = lista.filter(item => String(gastoField(item, 'descricao', 'Descricao')).toLowerCase().includes(q) || String(gastoField(item, 'categoria', 'Categoria')).toLowerCase().includes(q)); }
-  if(categoria) { lista = lista.filter(item => String(gastoField(item, 'categoria', 'Categoria')) === categoria); }
-  updateGastosSummary();
-  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="5"><div class="empty">Nenhum gasto encontrado para este per├¡odo.</div></td></tr>`; return; }
-  tbody.innerHTML = lista.map(item => `<tr>
-    <td>${fmtDate(gastoField(item, 'data', 'Data_Gasto'))}</td>
-    <td><span class="badge free">${escapeHtml(gastoField(item, 'categoria', 'Categoria') || '-')}</span></td>
-    <td>${escapeHtml(gastoField(item, 'descricao', 'Descricao') || '-')}</td>
-    <td><strong>${fmtCurrency(gastoField(item, 'valor', 'Valor'))}</strong></td>
-    <td><div class="inline-actions">
-      <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-gasto="${gastoField(item, 'id', 'Gasto_ID')}">Excluir</button>
-    </div></td>
-  </tr>`).join('');
-}
-
-async function deleteGasto(id){
-  if(!confirm('Excluir este gasto?')) return;
-  try {
-    setActionButtonsDisabled(true);
-    try {
-      await apiPostGastos('excluirGasto', { gasto_id: id });
-    } catch(err) {
-      await apiPostGastos('deletarGasto', { gasto_id: id });
-    }
-    state.gastos = state.gastos.filter(g => String(gastoField(g, 'id', 'Gasto_ID')) !== String(id));
-    saveGastosToStorage();
-    await loadGastos();
-    await loadDashboard();
-  } catch(error) {
-    showMessage($('gastoMsg'), error.message, 'error');
-  } finally {
-    setActionButtonsDisabled(false);
-  }
 }
 bootstrap();
 </script>
