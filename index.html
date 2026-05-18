@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tsurus Gaming Plus</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg:#07101d;--panel:#0f1b2d;--panel2:#13243d;--line:#294268;--text:#eef3fb;--muted:#9eb0ca;
+      --gold:#d9ac45;--gold2:#f0c763;--green:#1f9d67;--green-soft:rgba(31,157,103,.14);
+      --red:#c94b4b;--red-soft:rgba(201,75,75,.13);--blue-soft:rgba(110,166,255,.12);
+      --yellow-soft:rgba(217,172,69,.12);--shadow:0 18px 48px rgba(0,0,0,.34);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(circle at top, rgba(217,172,69,.08), transparent 24%),linear-gradient(180deg,#030915 0%, #08101f 100%)}
+    body{min-height:100vh}
+    .container{max-width:1420px;margin:0 auto;padding:22px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+      background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+      border:1px solid var(--line);border-radius:24px;padding:18px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+    .title h1{margin:0;color:#f3cd72;font-size:26px}.title p{margin:6px 0 0;color:var(--muted)}
+    .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .pill{border-radius:999px;padding:10px 14px;font-size:14px;font-weight:700;border:1px solid transparent;background:#10203a;color:#d8e8ff}
+    .pill.success{background:var(--green-soft);color:#9af0c8;border-color:rgba(31,157,103,.35)}
+    .pill.warn{background:var(--yellow-soft);color:#ffd977;border-color:rgba(217,172,69,.28)}
+    .pill.error{background:var(--red-soft);color:#ffcbcb;border-color:rgba(201,75,75,.28)}
+    button,.btn{border:none;border-radius:16px;padding:12px 18px;cursor:pointer;font-size:15px;font-weight:800;
+      transition:.18s ease;display:inline-flex;align-items:center;gap:8px}
+    .btn-primary{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#2b1a00}
+    .btn-secondary{background:#152744;color:#eef3ff;border:1px solid var(--line)}
+    .btn-ghost{background:transparent;color:#d7e6ff;border:1px solid var(--line)}
+    .btn-danger{background:#311515;color:#ffd6d6;border:1px solid rgba(201,75,75,.35)}
+    .btn-success{background:#103023;color:#b5f3d3;border:1px solid rgba(31,157,103,.35)}
+    .btn-sm{padding:8px 12px;font-size:13px;border-radius:12px}
+    button:disabled,.btn:disabled{opacity:.55;cursor:not-allowed}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+    .tab-btn{background:#0f1b2d;border:1px solid var(--line);color:#fff;padding:13px 14px;border-radius:18px;font-weight:800}
+    .tab-btn.active{background:linear-gradient(180deg, rgba(217,172,69,.18), rgba(217,172,69,.08));border-color:#b78928;color:#ffd977}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+      border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+    .card h2,.card h3{margin:0 0 14px}.card h2{font-size:20px}
+    .muted{color:var(--muted)}.small{font-size:13px}.relative{position:relative}.mb-16{margin-bottom:16px}.mt-16{margin-top:16px}
+    .grid-2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+    .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.split-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.stack{display:grid;gap:16px}
+    .kpi{padding:16px;border-radius:18px;background:#0c1626;border:1px solid #203455}.kpi .label{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .kpi .value{font-size:28px;font-weight:800}.kpi .sub{margin-top:8px;font-size:12px;color:#92a8cb}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.toolbar .group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .period-box{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.period-box .field{min-width:160px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.form-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.form-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    label{display:block;font-size:14px;font-weight:700;color:#dbe7ff;margin-bottom:8px}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#172744;color:#fff;font-size:15px;outline:none}
+    textarea{resize:vertical;min-height:90px} input:focus,select:focus,textarea:focus{border-color:#6488d1;box-shadow:0 0 0 3px rgba(110,166,255,.12)}
+    .table-wrap{overflow:auto;border:1px solid rgba(90,118,165,.25);border-radius:18px}
+    table{width:100%;border-collapse:collapse}th,td{padding:12px 14px;border-bottom:1px solid rgba(93,116,156,.25);text-align:left;vertical-align:top}
+    thead th{background:rgba(255,255,255,.02);color:#ffd977;font-size:14px}tbody tr:hover{background:rgba(255,255,255,.02)}
+    .checkbox-cell{display:flex;align-items:center;justify-content:center}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.nowrap{white-space:nowrap}
+    .badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px}
+    .badge.active{background:var(--green-soft);color:#8ef0c3;border:1px solid rgba(31,157,103,.35)}
+    .badge.off{background:rgba(160,167,180,.15);color:#d5d9e0;border:1px solid rgba(160,167,180,.25)}
+    .badge.paid{background:rgba(31,157,103,.12);color:#8ef0c3;border:1px solid rgba(31,157,103,.3)}
+    .badge.pending{background:rgba(217,172,69,.12);color:#ffd977;border:1px solid rgba(217,172,69,.3)}
+    .badge.late{background:var(--red-soft);color:#ffb8b8;border:1px solid rgba(201,75,75,.35)}
+    .badge.free{background:var(--blue-soft);color:#bfd6ff;border:1px solid rgba(110,166,255,.3)}
+    .msg{margin-top:14px;padding:14px 16px;border-radius:16px;border:1px solid transparent;white-space:pre-wrap}
+    .msg.success{background:var(--green-soft);border-color:rgba(31,157,103,.35);color:#a1f2ce}
+    .msg.error{background:var(--red-soft);border-color:rgba(201,75,75,.35);color:#ffc2c2}
+    .msg.info{background:var(--blue-soft);border-color:rgba(110,166,255,.28);color:#d4e4ff}
+    .hidden{display:none !important}.empty{padding:18px;border:1px dashed rgba(110,166,255,.25);border-radius:16px;color:var(--muted);text-align:center}
+    .note{padding:12px 14px;border-radius:14px;background:rgba(217,172,69,.08);border:1px solid rgba(217,172,69,.2);color:#f0db9a}
+    .chart-box{height:420px;min-height:420px;overflow:hidden}.chart-wrap{position:relative;height:340px;min-height:340px;max-height:340px;width:100%}
+    .chart-wrap canvas{display:block !important;width:100% !important;height:100% !important;max-height:340px !important}
+    .loading-overlay{position:absolute;inset:0;background:rgba(8,16,31,.76);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;border-radius:22px;z-index:5}
+    .loading-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:16px;background:#0d1627;border:1px solid var(--line);box-shadow:var(--shadow);font-weight:800}
+    .spinner{width:22px;height:22px;border-radius:50%;border:3px solid rgba(217,172,69,.22);border-top-color:#f0c763;animation:spin .9s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(5,10,18,.72);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+    .modal-backdrop.show{display:flex}
+    .modal{width:min(760px, 100%);max-height:92vh;overflow:auto;background:linear-gradient(180deg, #0d182b, #0b1322);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.modal-title{font-size:20px;font-weight:800;color:#ffd977}
+    .close-x{background:transparent;color:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px;cursor:pointer}
+    footer{padding:18px 0 4px;text-align:center;color:#c8d4eb}
+    @media (max-width:1200px){.grid-2,.split-2,.cards,.grid-5{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){.container{padding:14px}.tabs,.grid-2,.split-2,.cards,.grid-5,.form-grid,.form-grid-3,.form-grid-4{grid-template-columns:1fr}.topbar{align-items:flex-start}.period-box .field{min-width:100%}}
+  </style>
+</head>
+<body>
+<div class="container">
+  <header class="topbar">
+    <div class="title">
+      <h1>Tsurus Gaming Plus</h1>
+      <p>Controle mensal de pagamentos com dashboard, competência e estrutura pronta para gastos.</p>
+    </div>
+    <div class="actions">
+      <div id="syncStatus" class="pill warn">Aguardando sincronização</div>
+      <button id="btnSyncAll" class="btn btn-primary">Sincronizar tudo</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="pagamentos">Pagamentos</button>
+    <button class="tab-btn" data-tab="gastos">Gastos</button>
+    <button class="tab-btn" data-tab="jogadores">Jogadores</button>
+    <button class="tab-btn" data-tab="info">Informações</button>
+  </nav>
+
+  <section id="tab-dashboard" class="tab-panel active">
+    <div class="card relative mb-16">
+      <div id="dashLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando dashboard...</div></div></div>
+      <div class="toolbar">
+        <div><h2 style="margin:0 0 8px">Período do dashboard</h2><div class="muted small">Selecione diretamente o mês e o ano.</div></div>
+        <div class="period-box">
+          <div class="field"><label for="dashAno">Ano</label><select id="dashAno"></select></div>
+          <div class="field"><label for="dashMes">Mês</label><select id="dashMes"></select></div>
+          <div class="field"><label>&nbsp;</label><button id="btnAplicarDashboardPeriodo" class="btn btn-secondary">Aplicar período</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards mb-16">
+      <div class="kpi"><div class="label">Receita do mês</div><div id="kpiReceitaMes" class="value">R$ 0,00</div><div class="sub">Pagamentos pagos na competência</div></div>
+      <div class="kpi"><div class="label">Receita do ano</div><div id="kpiReceitaAno" class="value">R$ 0,00</div><div class="sub">Ano selecionado</div></div>
+      <div class="kpi"><div class="label">Receita total</div><div id="kpiReceitaTotal" class="value">R$ 0,00</div><div class="sub">Acumulado geral</div></div>
+      <div class="kpi"><div class="label">Gastos do mês</div><div id="kpiGastosMes" class="value">R$ 0,00</div><div class="sub">Aguardando integração</div></div>
+      <div class="kpi"><div class="label">Saldo líquido do mês</div><div id="kpiSaldoLiquidoMes" class="value">R$ 0,00</div><div class="sub">Receita do mês - gastos</div></div>
+    </div>
+
+    <div class="cards mb-16">
+      <div class="kpi"><div class="label">Jogadores ativos</div><div id="kpiJogadoresAtivos" class="value">0</div><div class="sub">Assinatura ativa</div></div>
+      <div class="kpi"><div class="label">Não pagantes do mês</div><div id="kpiNaoPagantes" class="value">0</div><div class="sub">Competência atual</div></div>
+      <div class="kpi"><div class="label">Pagos do mês</div><div id="kpiPagosMes" class="value">0</div><div class="sub">Status Pago</div></div>
+      <div class="kpi"><div class="label">Pendentes do mês</div><div id="kpiPendentesMes" class="value">0</div><div class="sub">Status Pendente</div></div>
+      <div class="kpi"><div class="label">Atrasados gerais</div><div id="kpiAtrasados" class="value">0</div><div class="sub">Todos os meses</div></div>
+    </div>
+
+    <div class="split-2 mb-16">
+      <div class="card chart-box"><h2>Recebimento por mês</h2><div class="chart-wrap"><canvas id="chartResumoMensal"></canvas></div></div>
+      <div class="card chart-box"><h2>Status da competência</h2><div class="chart-wrap"><canvas id="chartStatusCompetencia"></canvas></div></div>
+    </div>
+
+    <div class="split-2">
+      <div class="card">
+        <h2>Resumo mensal do ano</h2>
+        <div class="table-wrap"><table><thead><tr><th>Mês</th><th>Total recebido</th></tr></thead><tbody id="dashboardResumoBody"></tbody></table></div>
+      </div>
+      <div class="card">
+        <h2>Não pagantes da competência</h2>
+        <div class="table-wrap"><table><thead><tr><th>Jogador</th><th>Nickname</th><th>Meses em aberto</th></tr></thead><tbody id="dashboardNaoPagantesBody"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-pagamentos" class="tab-panel">
+    <div class="card relative mb-16">
+      <div id="competenciaLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando competência...</div></div></div>
+      <div class="toolbar">
+        <div><h2 style="margin:0 0 8px">Competência de pagamentos</h2><div class="muted small">Selecione diretamente o mês e o ano que deseja trabalhar.</div></div>
+        <div class="period-box">
+          <div class="field"><label for="payAno">Ano</label><select id="payAno"></select></div>
+          <div class="field"><label for="payMes">Mês</label><select id="payMes"></select></div>
+          <div class="field"><label>&nbsp;</label><button id="btnAplicarCompetenciaPeriodo" class="btn btn-secondary">Carregar competência</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-5 mb-16">
+      <div class="kpi"><div class="label">Pagos</div><div id="cmpPagos" class="value">0</div><div class="sub">Registros com status Pago</div></div>
+      <div class="kpi"><div class="label">Pendentes</div><div id="cmpPendentes" class="value">0</div><div class="sub">Registros com status Pendente</div></div>
+      <div class="kpi"><div class="label">Atrasados</div><div id="cmpAtrasados" class="value">0</div><div class="sub">Registros com status Atrasado</div></div>
+      <div class="kpi"><div class="label">Não pagantes</div><div id="cmpNaoPagantes" class="value">0</div><div class="sub">Jogadores ativos sem lançamento</div></div>
+      <div class="kpi"><div class="label">Recebido no mês</div><div id="cmpValorRecebido" class="value">R$ 0,00</div><div class="sub">Somente pagos</div></div>
+    </div>
+
+    <div class="grid-2 mb-16">
+      <div class="card">
+        <h2>Lançamento rápido por jogador</h2>
+        <div class="form-grid-4">
+          <div><label for="quickValor">Valor padrão</label><input id="quickValor" type="number" step="0.01" min="0" value="35" /></div>
+          <div><label for="quickStatus">Status padrão</label>
+            <select id="quickStatus"><option value="Pago">Pago</option><option value="Pendente">Pendente</option><option value="Atrasado">Atrasado</option><option value="Isento">Isento</option></select>
+          </div>
+          <div><label for="quickData">Data padrão</label><input id="quickData" type="date" /></div>
+          <div><label for="quickRef">Referência padrão</label><input id="quickRef" value="Pix" /></div>
+        </div>
+        <div class="form-grid mt-16">
+          <div><label for="quickObs">Observações padrão</label><input id="quickObs" /></div>
+          <div><label>&nbsp;</label><div class="note">O registro em lote usa exatamente estes valores do período selecionado.</div></div>
+        </div>
+      </div>
+
+      <div class="card relative">
+        <div id="loteLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Salvando lançamentos em lote...</div></div></div>
+        <h2>Lançamento em lote</h2>
+        <p class="muted small">Selecione jogadores na tabela de não pagantes e registre vários pagamentos de uma vez.</p>
+        <div class="form-actions">
+          <button id="btnSelecionarTodosNaoPagantes" class="btn btn-secondary" type="button">Selecionar todos</button>
+          <button id="btnLimparSelecaoNaoPagantes" class="btn btn-ghost" type="button">Limpar seleção</button>
+          <button id="btnRegistrarLote" class="btn btn-primary" type="button">Registrar selecionados</button>
+        </div>
+        <div id="pagamentoMsg" class="msg hidden"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card relative">
+        <div id="naoPagantesLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando não pagantes...</div></div></div>
+        <div class="toolbar mb-16"><h2>Não pagantes da competência</h2><div class="group"><input id="filtroNaoPagantes" placeholder="Buscar por nome, nickname ou ID" style="width:280px" /></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th class="nowrap">Sel.</th><th>ID</th><th>Jogador</th><th>Nickname</th><th>Meses em aberto</th><th>Último pagamento</th><th>Ações</th></tr></thead>
+            <tbody id="naoPagantesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card relative">
+        <div id="pagamentosLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando pagamentos...</div></div></div>
+        <div class="toolbar mb-16"><h2>Pagamentos da competência</h2><div class="group"><input id="filtroPagamentos" placeholder="Buscar pagamento, jogador ou referência" style="width:320px" /></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Jogador</th><th>Valor</th><th>Status</th><th>Data pagamento</th><th>Referência</th><th>Observações</th><th>Ações</th></tr></thead>
+            <tbody id="pagamentosBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-gastos" class="tab-panel">
+    <div class="card relative mb-16">
+      <div id="gastosLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando gastos...</div></div></div>
+      <div class="toolbar">
+        <div><h2 style="margin:0 0 8px">Período de gastos</h2><div class="muted small">Selecione diretamente o mês e o ano que deseja trabalhar.</div></div>
+        <div class="period-box">
+          <div class="field"><label for="gastAno">Ano</label><select id="gastAno"></select></div>
+          <div class="field"><label for="gastMes">Mês</label><select id="gastMes"></select></div>
+          <div class="field"><label>&nbsp;</label><button id="btnAplicarGastosPeriodo" class="btn btn-secondary">Carregar gastos</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-5 mb-16">
+      <div class="kpi"><div class="label">Total de gastos</div><div id="gastTotalMes" class="value">R$ 0,00</div><div class="sub">Gastos registrados</div></div>
+      <div class="kpi"><div class="label">Alimentação</div><div id="gastAlimentacao" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
+      <div class="kpi"><div class="label">Servidores</div><div id="gastServidores" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
+      <div class="kpi"><div class="label">Outros custos</div><div id="gastOutros" class="value">R$ 0,00</div><div class="sub">Categoria</div></div>
+      <div class="kpi"><div class="label">Quantidade</div><div id="gastQuantidade" class="value">0</div><div class="sub">Registros do mês</div></div>
+    </div>
+
+    <div class="grid-2 mb-16">
+      <div class="card">
+        <h2>Lançar novo gasto</h2>
+        <form id="formGasto">
+          <div class="form-grid-3">
+            <div><label for="gastData">Data</label><input id="gastData" type="date" required /></div>
+            <div><label for="gastValor">Valor</label><input id="gastValor" type="number" step="0.01" min="0" required /></div>
+            <div><label for="gastCategoria">Categoria</label><select id="gastCategoria" required><option value="">Selecione...</option><option value="Alimentação">Alimentação</option><option value="Servidores">Servidores</option><option value="Outros">Outros custos</option></select></div>
+          </div>
+          <div class="mt-16"><label for="gastDescricao">Descrição</label><input id="gastDescricao" placeholder="Descrição do gasto" /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Registrar gasto</button></div>
+        </form>
+        <div id="gastoMsg" class="msg hidden"></div>
+      </div>
+
+      <div class="card">
+        <h2>Filtros e ações</h2>
+        <div class="form-grid">
+          <div><label for="filtroGastos">Buscar</label><input id="filtroGastos" placeholder="Descrição ou categoria" /></div>
+          <div><label for="filtroGastosCategoria">Categoria</label><select id="filtroGastosCategoria"><option value="">Todas</option><option value="Alimentação">Alimentação</option><option value="Servidores">Servidores</option><option value="Outros">Outros custos</option></select></div>
+        </div>
+        <div class="form-actions">
+          <button id="btnFiltrarGastos" class="btn btn-secondary" type="button">Aplicar filtro</button>
+          <button id="btnLimparFiltroGastos" class="btn btn-ghost" type="button">Limpar</button>
+        </div>
+        <div class="note mt-16">Os gastos são armazenados localmente até a integração com a API ser configurada.</div>
+      </div>
+    </div>
+
+    <div class="card relative">
+      <div id="gastosTableLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando gastos...</div></div></div>
+      <h2>Gastos registrados</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th><th>Ações</th></tr></thead>
+          <tbody id="gastosBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-jogadores" class="tab-panel">
+    <div class="grid-2 mb-16">
+      <div class="card">
+        <h2>Cadastrar jogador</h2>
+        <form id="formJogador">
+          <div class="form-grid">
+            <div><label for="jogNome">Nome do jogador</label><input id="jogNome" required /></div>
+            <div><label for="jogNickname">Nickname</label><input id="jogNickname" required /></div>
+            <div><label for="jogStatus">Status da assinatura</label><select id="jogStatus"><option value="Ativa">Ativa</option><option value="Desativada">Desativada</option></select></div>
+            <div><label for="jogObs">Observações</label><input id="jogObs" /></div>
+          </div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Cadastrar jogador</button></div>
+        </form>
+        <div id="jogadorMsg" class="msg hidden"></div>
+      </div>
+
+      <div class="card">
+        <h2>Filtros</h2>
+        <div class="form-grid">
+          <div><label for="filtroJogadorTexto">Buscar</label><input id="filtroJogadorTexto" placeholder="Nome, nickname ou ID" /></div>
+          <div><label for="filtroJogadorStatus">Status</label><select id="filtroJogadorStatus"><option value="">Todos</option><option value="Ativa">Ativa</option><option value="Desativada">Desativada</option></select></div>
+        </div>
+        <div class="form-actions">
+          <button id="btnFiltrarJogadores" class="btn btn-secondary" type="button">Aplicar filtro</button>
+          <button id="btnLimparFiltroJogadores" class="btn btn-ghost" type="button">Limpar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card relative">
+      <div id="jogadoresLoading" class="loading-overlay hidden"><div class="loading-box"><div class="spinner"></div><div>Carregando jogadores...</div></div></div>
+      <h2>Jogadores cadastrados</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Nome</th><th>Nickname</th><th>Status</th><th>Cadastro</th><th>Observações</th><th>Ações</th></tr></thead>
+          <tbody id="jogadoresBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-info" class="tab-panel">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Fonte fixa de dados</h2>
+        <p class="muted" style="word-break:break-all">Este front-end usa diretamente a URL fixa do Apps Script:</p>
+        <div class="note" style="word-break:break-all">https://script.google.com/macros/s/AKfycbziPcwjHO4-TrIBcwJ9Cyfx33dN2VehPihgH8RYGRSTquAB_-c1BBN5KCnLrQB8KaMpDA/exec</div>
+      <div class="note" style="word-break:break-all">Nova API de gastos: https://script.google.com/macros/s/AKfycbxHCxo1luNRkbk2FUzV65aVadBnTMNmO17oCPKXCW026p85u_7NgJ-JHhhGHX2EryjZoQ/exec</div>
+        <div class="form-actions">
+          <button id="btnTestarConexao" class="btn btn-secondary">Testar conexão</button>
+          <button id="btnSincronizarInfo" class="btn btn-primary">Sincronizar agora</button>
+        </div>
+        <div id="infoMsg" class="msg hidden"></div>
+      </div>
+      <div class="card">
+        <h2>Próxima atualização: gastos</h2>
+        <p class="muted">O front-end já está preparado visualmente para receber o valor de uma segunda planilha de gastos.</p>
+        <ul class="muted">
+          <li>Os cards “Gastos do mês” e “Saldo líquido do mês” já existem.</li>
+          <li>No momento, os gastos ficam em <strong>R$ 0,00</strong>.</li>
+          <li>Quando a segunda planilha e a rota do Apps Script forem criadas, o front-end poderá começar a consumir esses dados.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>Tsurus Gaming Plus — versão com seleção direta de mês e ano.</footer>
+</div>
+
+<div id="playerModalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Editar jogador</div><button class="close-x" type="button" data-close-modal="player">Fechar</button></div>
+    <form id="formEditPlayer">
+      <input type="hidden" id="editPlayerId" />
+      <div class="form-grid">
+        <div><label for="editPlayerNome">Nome</label><input id="editPlayerNome" required /></div>
+        <div><label for="editPlayerNickname">Nickname</label><input id="editPlayerNickname" required /></div>
+        <div><label for="editPlayerStatus">Status</label><select id="editPlayerStatus"><option value="Ativa">Ativa</option><option value="Desativada">Desativada</option></select></div>
+        <div><label for="editPlayerObs">Observações</label><input id="editPlayerObs" /></div>
+      </div>
+      <div class="form-actions"><button id="btnSalvarEdicaoJogador" class="btn btn-primary" type="submit">Salvar jogador</button></div>
+    </form>
+    <div id="editPlayerMsg" class="msg hidden"></div>
+  </div>
+</div>
+
+<div id="paymentModalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Editar pagamento</div><button class="close-x" type="button" data-close-modal="payment">Fechar</button></div>
+    <form id="formEditPayment">
+      <input type="hidden" id="editPagamentoId" />
+      <div class="form-grid-3">
+        <div><label for="editPagamentoAno">Ano</label><input id="editPagamentoAno" type="number" min="2026" /></div>
+        <div><label for="editPagamentoMes">Mês</label><input id="editPagamentoMes" type="number" min="1" max="12" /></div>
+        <div><label for="editPagamentoValor">Valor</label><input id="editPagamentoValor" type="number" step="0.01" min="0" /></div>
+      </div>
+      <div class="form-grid-3 mt-16">
+        <div><label for="editPagamentoStatus">Status</label><select id="editPagamentoStatus"><option value="Pago">Pago</option><option value="Pendente">Pendente</option><option value="Atrasado">Atrasado</option><option value="Isento">Isento</option></select></div>
+        <div><label for="editPagamentoData">Data pagamento</label><input id="editPagamentoData" type="date" /></div>
+        <div><label for="editPagamentoRef">Referência</label><input id="editPagamentoRef" /></div>
+      </div>
+      <div class="mt-16"><label for="editPagamentoObs">Observações</label><textarea id="editPagamentoObs"></textarea></div>
+      <div class="form-actions"><button id="btnSalvarEdicaoPagamento" class="btn btn-primary" type="submit">Salvar pagamento</button></div>
+    </form>
+    <div id="editPaymentMsg" class="msg hidden"></div>
+  </div>
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbziPcwjHO4-TrIBcwJ9Cyfx33dN2VehPihgH8RYGRSTquAB_-c1BBN5KCnLrQB8KaMpDA/exec';
+const API_GASTOS_URL = 'https://script.google.com/macros/s/AKfycbxHCxo1luNRkbk2FUzV65aVadBnTMNmO17oCPKXCW026p85u_7NgJ-JHhhGHX2EryjZoQ/exec';
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+const state = { jogadores: [], dashboard: null, competencia: { pagamentos: [], nao_pagantes: [] }, gastos: [], dashboardRef: { ano: 2026, mes: 2 }, paymentsRef: { ano: 2026, mes: 2 }, gastosRef: { ano: 2026, mes: 2 }, charts: { resumo: null, status: null }, selectedNaoPagantes: new Set() };
+const $ = (id) => document.getElementById(id);
+
+function escapeHtml(value){return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;")}
+function fmtCurrency(value){return Number(value || 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function fmtDate(value){if(!value)return '-'; const d=new Date(value); if(Number.isNaN(d.getTime())) return String(value); return d.toLocaleDateString('pt-BR')}
+function toInputDate(value){if(!value)return ''; const d=new Date(value); if(Number.isNaN(d.getTime())) return ''; return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function getTodayISO(){return toInputDate(new Date())}
+function renderAssinatura(status){return String(status||'')==='Ativa'?'<span class="badge active">Ativa</span>':'<span class="badge off">Desativada</span>'}
+function renderStatusPagamento(status){const s=String(status||''); if(s==='Pago') return '<span class="badge paid">Pago</span>'; if(s==='Pendente') return '<span class="badge pending">Pendente</span>'; if(s==='Atrasado') return '<span class="badge late">Atrasado</span>'; return '<span class="badge free">Isento</span>'}
+function gastoField(item, ...keys){ for(const key of keys){ if(item[key] !== undefined && item[key] !== null) return item[key]; } return ''; }
+function setSyncStatus(text,type='warn'){const el=$('syncStatus'); el.textContent=text; el.className=`pill ${type}`}
+function showMessage(el,text,type='info'){el.textContent=text; el.className=`msg ${type}`; el.classList.remove('hidden')}
+function hideMessage(el){el.textContent=''; el.className='msg hidden'}
+function openModal(type){ if(type==='player') $('playerModalBackdrop').classList.add('show'); if(type==='payment') $('paymentModalBackdrop').classList.add('show') }
+function closeModal(type){ if(type==='player'){ $('playerModalBackdrop').classList.remove('show'); hideMessage($('editPlayerMsg')); } if(type==='payment'){ $('paymentModalBackdrop').classList.remove('show'); hideMessage($('editPaymentMsg')); } }
+function setLoadingArea(id,active,message){const overlay=$(id); if(overlay) overlay.classList.toggle('hidden',!active); if(message) setSyncStatus(message, active ? 'warn':'success')}
+function setActionButtonsDisabled(active){['btnSyncAll','btnRegistrarLote','btnAplicarDashboardPeriodo','btnAplicarCompetenciaPeriodo','btnAplicarGastosPeriodo','btnSelecionarTodosNaoPagantes','btnLimparSelecaoNaoPagantes','btnSalvarEdicaoJogador','btnSalvarEdicaoPagamento','btnTestarConexao','btnSincronizarInfo','btnFiltrarGastos','btnLimparFiltroGastos'].forEach(id=>{const el=$(id); if(el) el.disabled=active}); document.querySelectorAll('[data-action-btn="1"]').forEach(el=>el.disabled=active)}
+
+async function apiGetBase(baseUrl, action, params = {}){
+  const url = new URL(baseUrl);
+  url.searchParams.set('action', action);
+  Object.entries(params).forEach(([k,v]) => { if(v !== undefined && v !== null && v !== '') url.searchParams.set(k, v); });
+  const res = await fetch(url.toString(), { method:'GET' });
+  const text = await res.text();
+  let json;
+  try { json = JSON.parse(text); } catch(e) { throw new Error('Resposta inválida do Apps Script: ' + text); }
+  if(!json.ok) throw new Error(json.error || 'Erro na requisição GET.');
+  return json;
+}
+
+async function apiPostBase(baseUrl, action, payload = {}){
+  const res = await fetch(baseUrl, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify({ action, ...payload }) });
+  const text = await res.text();
+  let json;
+  try { json = JSON.parse(text); } catch(e) { throw new Error('Resposta inválida do Apps Script: ' + text); }
+  if(!json.ok) throw new Error(json.error || 'Erro na requisição POST.');
+  return json;
+}
+
+async function apiGet(action, params = {}){ return apiGetBase(API_URL, action, params); }
+async function apiPost(action, payload = {}){ return apiPostBase(API_URL, action, payload); }
+async function apiGetGastos(action, params = {}){ return apiGetBase(API_GASTOS_URL, action, params); }
+async function apiPostGastos(action, payload = {}){ return apiPostBase(API_GASTOS_URL, action, payload); }
+
+function fillYearMonthSelectors(){
+  const currentYear = Math.max(new Date().getFullYear() + 3, 2032);
+  const years = [];
+  for(let y=2026; y<=currentYear; y++) years.push(y);
+  $('dashAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+  $('payAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+  $('gastAno').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+  $('dashMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+  $('payMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+  $('gastMes').innerHTML = MONTH_NAMES.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+  syncSelectorsFromState();
+}
+
+function syncSelectorsFromState(){
+  $('dashAno').value = String(state.dashboardRef.ano);
+  $('dashMes').value = String(state.dashboardRef.mes);
+  $('payAno').value = String(state.paymentsRef.ano);
+  $('payMes').value = String(state.paymentsRef.mes);
+  $('gastAno').value = String(state.gastosRef.ano);
+  $('gastMes').value = String(state.gastosRef.mes);
+}
+
+function activateTab(name){
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${name}`));
+}
+
+async function loadJogadores(){
+  setLoadingArea('jogadoresLoading', true, 'Consultando jogadores...');
+  try {
+    const json = await apiGet('listarJogadores');
+    state.jogadores = Array.isArray(json.data) ? json.data : [];
+    renderJogadores();
+  } finally {
+    setLoadingArea('jogadoresLoading', false);
+  }
+}
+
+async function loadDashboard(){
+  setLoadingArea('dashLoading', true, 'Consultando dashboard...');
+  try {
+    const json = await apiGet('dashboard', { ano: state.dashboardRef.ano, mes: state.dashboardRef.mes });
+    state.dashboard = json.data || null;
+    renderDashboard();
+    renderCharts();
+    setSyncStatus('Dashboard atualizado', 'success');
+  } finally {
+    setLoadingArea('dashLoading', false);
+  }
+}
+
+async function loadCompetencia(){
+  setLoadingArea('competenciaLoading', true, 'Consultando competência...');
+  setLoadingArea('pagamentosLoading', true);
+  setLoadingArea('naoPagantesLoading', true);
+  try {
+    const json = await apiGet('listarPagamentosPorCompetencia', { ano: state.paymentsRef.ano, mes: state.paymentsRef.mes });
+    state.competencia = json.data || { pagamentos: [], nao_pagantes: [] };
+    state.selectedNaoPagantes.clear();
+    renderCompetenciaSummary();
+    renderPagamentos();
+    renderNaoPagantes();
+    setSyncStatus('Competência carregada', 'success');
+  } finally {
+    setLoadingArea('competenciaLoading', false);
+    setLoadingArea('pagamentosLoading', false);
+    setLoadingArea('naoPagantesLoading', false);
+  }
+}
+
+async function syncAll(){
+  try {
+    setActionButtonsDisabled(true);
+    setSyncStatus('Sincronizando...', 'warn');
+    await Promise.all([loadJogadores(), loadDashboard(), loadCompetencia(), loadGastos()]);
+    setSyncStatus('Sincronizado com sucesso', 'success');
+  } catch(error) {
+    setSyncStatus('Falha na sincronização', 'error');
+    showMessage($('infoMsg'), error.message, 'error');
+  } finally {
+    setActionButtonsDisabled(false);
+  }
+}
+
+function renderDashboard(){
+  const dash = state.dashboard; if(!dash) return;
+  const gastosLocais = state.gastos.filter(g => Number(g.ano) === state.dashboardRef.ano && Number(g.mes) === state.dashboardRef.mes).reduce((acc,g) => acc + Number(g.valor || 0), 0);
+  const gastosMes = Number((dash.gastos_mes ?? dash.total_gastos_mes ?? gastosLocais) || 0);
+  const saldoLiquidoMes = Number(dash.receita_mes || 0) - gastosMes;
+  $('kpiReceitaMes').textContent = fmtCurrency(dash.receita_mes);
+  $('kpiReceitaAno').textContent = fmtCurrency(dash.receita_ano);
+  $('kpiReceitaTotal').textContent = fmtCurrency(dash.receita_total);
+  $('kpiGastosMes').textContent = fmtCurrency(gastosMes);
+  $('kpiSaldoLiquidoMes').textContent = fmtCurrency(saldoLiquidoMes);
+  $('kpiJogadoresAtivos').textContent = String(dash.jogadores_ativos || 0);
+  $('kpiNaoPagantes').textContent = String(dash.nao_pagantes_mes || 0);
+  $('kpiPagosMes').textContent = String(dash.pagamentos_pagos_mes || 0);
+  $('kpiPendentesMes').textContent = String(dash.pagamentos_pendentes_mes || 0);
+  $('kpiAtrasados').textContent = String(dash.pagamentos_atrasados || 0);
+
+  const resumo = Array.isArray(dash.resumo_mensal) ? dash.resumo_mensal : [];
+  $('dashboardResumoBody').innerHTML = resumo.length ? resumo.map(item => `<tr><td>${MONTH_NAMES[(item.mes || 1) - 1]}</td><td>${fmtCurrency(item.total_recebido)}</td></tr>`).join('') : `<tr><td colspan="2"><div class="empty">Sem dados.</div></td></tr>`;
+
+  const preview = Array.isArray(dash.nao_pagantes_preview) ? dash.nao_pagantes_preview : [];
+  $('dashboardNaoPagantesBody').innerHTML = preview.length ? preview.map(item => `<tr><td>${escapeHtml(item.Nome_Jogador || '-')}</td><td>${escapeHtml(item.Nickname || '-')}</td><td>${escapeHtml(item.Meses_Em_Aberto_Ate_Competencia || 0)}</td></tr>`).join('') : `<tr><td colspan="3"><div class="empty">Nenhum não pagante nesta competência.</div></td></tr>`;
+}
+
+function renderCharts(){
+  if(!state.dashboard) return;
+  const resumo = Array.isArray(state.dashboard.resumo_mensal) ? state.dashboard.resumo_mensal : [];
+  const resumoLabels = resumo.map(item => MONTH_NAMES[(item.mes || 1) - 1]);
+  const resumoValues = resumo.map(item => Number(item.total_recebido || 0));
+
+  if(state.charts.resumo) state.charts.resumo.destroy();
+  state.charts.resumo = new Chart($('chartResumoMensal'), {
+    type:'bar',
+    data:{ labels:resumoLabels, datasets:[{ label:'Total recebido', data:resumoValues }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120, plugins:{ legend:{ labels:{ color:'#eef3fb' } } },
+      scales:{ x:{ ticks:{ color:'#cbd8ee' }, grid:{ color:'rgba(255,255,255,.05)' } }, y:{ ticks:{ color:'#cbd8ee' }, grid:{ color:'rgba(255,255,255,.05)' } } } }
+  });
+
+  const status = state.dashboard.grafico_status_competencia || {};
+  if(state.charts.status) state.charts.status.destroy();
+  state.charts.status = new Chart($('chartStatusCompetencia'), {
+    type:'doughnut',
+    data:{ labels:['Pagos','Pendentes','Atrasados','Isentos','Não pagantes'], datasets:[{ data:[Number(status.pagos||0),Number(status.pendentes||0),Number(status.atrasados||0),Number(status.isentos||0),Number(status.nao_pagantes||0)] }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120, plugins:{ legend:{ labels:{ color:'#eef3fb' } } } }
+  });
+}
+
+function renderCompetenciaSummary(){
+  const pagamentos = state.competencia.pagamentos || [];
+  const naoPagantes = state.competencia.nao_pagantes || [];
+  const pagos = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pago').length;
+  const pendentes = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pendente').length;
+  const atrasados = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Atrasado').length;
+  const recebido = pagamentos.filter(p => String(p.Status_Pagamento || '') === 'Pago').reduce((acc,p) => acc + Number(p.Valor || 0), 0);
+  $('cmpPagos').textContent = String(pagos);
+  $('cmpPendentes').textContent = String(pendentes);
+  $('cmpAtrasados').textContent = String(atrasados);
+  $('cmpNaoPagantes').textContent = String(naoPagantes.length);
+  $('cmpValorRecebido').textContent = fmtCurrency(recebido);
+}
+
+function renderNaoPagantes(){
+  const tbody = $('naoPagantesBody');
+  const q = $('filtroNaoPagantes').value.trim().toLowerCase();
+  let lista = [...(state.competencia.nao_pagantes || [])];
+  if(q){ lista = lista.filter(item => String(item.Player_ID || '').toLowerCase().includes(q) || String(item.Nome_Jogador || '').toLowerCase().includes(q) || String(item.Nickname || '').toLowerCase().includes(q)); }
+  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="7"><div class="empty">Nenhum não pagante encontrado.</div></td></tr>`; return; }
+  tbody.innerHTML = lista.map(item => {
+    const checked = state.selectedNaoPagantes.has(String(item.Player_ID)) ? 'checked' : '';
+    return `<tr>
+      <td class="checkbox-cell"><input type="checkbox" data-naopagante-check="1" value="${escapeHtml(item.Player_ID)}" ${checked} /></td>
+      <td>${escapeHtml(item.Player_ID || '-')}</td>
+      <td>${escapeHtml(item.Nome_Jogador || '-')}</td>
+      <td>${escapeHtml(item.Nickname || '-')}</td>
+      <td>${escapeHtml(item.Meses_Em_Aberto_Ate_Competencia || 0)}</td>
+      <td>${escapeHtml(item.Ultimo_Pagamento_Competencia || '-')}</td>
+      <td><div class="inline-actions"><button class="btn btn-success btn-sm" type="button" data-action-btn="1" data-quick-pay="${escapeHtml(item.Player_ID)}">Pagamento rápido</button></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderPagamentos(){
+  const tbody = $('pagamentosBody');
+  const q = $('filtroPagamentos').value.trim().toLowerCase();
+  let lista = [...(state.competencia.pagamentos || [])];
+  if(q){ lista = lista.filter(item => String(item.Pagamento_ID || '').toLowerCase().includes(q) || String(item.Nome_Jogador || '').toLowerCase().includes(q) || String(item.Nickname || '').toLowerCase().includes(q) || String(item.Referencia || '').toLowerCase().includes(q)); }
+  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="8"><div class="empty">Nenhum pagamento encontrado para esta competência.</div></td></tr>`; return; }
+  tbody.innerHTML = lista.map(item => `<tr>
+    <td>${escapeHtml(item.Pagamento_ID || '-')}</td>
+    <td><div>${escapeHtml(item.Nome_Jogador || '-')}</div><div class="muted small">${escapeHtml(item.Nickname || '-')}</div></td>
+    <td>${fmtCurrency(item.Valor)}</td>
+    <td>${renderStatusPagamento(item.Status_Pagamento)}</td>
+    <td>${fmtDate(item.Data_Pagamento)}</td>
+    <td>${escapeHtml(item.Referencia || '-')}</td>
+    <td>${escapeHtml(item.Observacoes || '-')}</td>
+    <td><div class="inline-actions">
+      <button class="btn btn-secondary btn-sm" type="button" data-action-btn="1" data-edit-payment="${escapeHtml(item.Pagamento_ID)}">Editar</button>
+      <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-payment="${escapeHtml(item.Pagamento_ID)}">Excluir</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderJogadores(){
+  const tbody = $('jogadoresBody');
+  const q = $('filtroJogadorTexto').value.trim().toLowerCase();
+  const status = $('filtroJogadorStatus').value;
+  let lista = [...state.jogadores];
+  if(q){ lista = lista.filter(j => String(j.Player_ID || '').toLowerCase().includes(q) || String(j.Nome_Jogador || '').toLowerCase().includes(q) || String(j.Nickname || '').toLowerCase().includes(q)); }
+  if(status){ lista = lista.filter(j => String(j.Assinatura_Status || '') === status); }
+  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="7"><div class="empty">Nenhum jogador encontrado.</div></td></tr>`; return; }
+  tbody.innerHTML = lista.map(j => `<tr>
+    <td>${escapeHtml(j.Player_ID || '-')}</td>
+    <td>${escapeHtml(j.Nome_Jogador || '-')}</td>
+    <td>${escapeHtml(j.Nickname || '-')}</td>
+    <td>${renderAssinatura(j.Assinatura_Status)}</td>
+    <td>${fmtDate(j.Data_Cadastro)}</td>
+    <td>${escapeHtml(j.Observacoes || '-')}</td>
+    <td><div class="inline-actions">
+      <button class="btn btn-secondary btn-sm" type="button" data-action-btn="1" data-edit-player="${escapeHtml(j.Player_ID)}">Editar</button>
+      <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-player="${escapeHtml(j.Player_ID)}">Excluir</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function getQuickPayloadForPlayer(playerId){
+  return {
+    player_id: playerId,
+    valor: Number($('quickValor').value || 0),
+    competencia_ano: state.paymentsRef.ano,
+    competencia_mes: state.paymentsRef.mes,
+    status_pagamento: $('quickStatus').value,
+    data_pagamento: $('quickData').value,
+    referencia: $('quickRef').value.trim(),
+    observacoes: $('quickObs').value.trim()
+  };
+}
+
+async function quickPayPlayer(playerId){
+  try {
+    setActionButtonsDisabled(true);
+    setSyncStatus('Registrando pagamento...', 'warn');
+    const json = await apiPost('registrarPagamento', getQuickPayloadForPlayer(playerId));
+    showMessage($('pagamentoMsg'), `${json.message}
+Pagamento: ${json.data.pagamento_id}`, 'success');
+    state.dashboardRef.ano = state.paymentsRef.ano;
+    state.dashboardRef.mes = state.paymentsRef.mes;
+    syncSelectorsFromState();
+    await Promise.all([loadCompetencia(), loadDashboard()]);
+  } catch(error) {
+    showMessage($('pagamentoMsg'), error.message, 'error');
+    setSyncStatus('Falha no registro', 'error');
+  } finally {
+    setActionButtonsDisabled(false);
+  }
+}
+
+async function registerBulkSelected(){
+  const ids = [...state.selectedNaoPagantes];
+  if(!ids.length){ showMessage($('pagamentoMsg'), 'Selecione ao menos um jogador.', 'error'); return; }
+  try {
+    setLoadingArea('loteLoading', true, 'Registrando pagamentos em lote...');
+    setActionButtonsDisabled(true);
+    const pagamentos = ids.map(playerId => getQuickPayloadForPlayer(playerId));
+    const json = await apiPost('registrarPagamentosEmLote', { pagamentos });
+    showMessage($('pagamentoMsg'), `${json.message}
+Quantidade: ${json.data.quantidade}`, 'success');
+    state.dashboardRef.ano = state.paymentsRef.ano;
+    state.dashboardRef.mes = state.paymentsRef.mes;
+    syncSelectorsFromState();
+    await Promise.all([loadCompetencia(), loadDashboard()]);
+  } catch(error) {
+    showMessage($('pagamentoMsg'), error.message, 'error');
+  } finally {
+    setLoadingArea('loteLoading', false);
+    setActionButtonsDisabled(false);
+  }
+}
+
+function findPlayerById(id){ return state.jogadores.find(j => String(j.Player_ID) === String(id)) || null; }
+function findPaymentById(id){ return (state.competencia.pagamentos || []).find(p => String(p.Pagamento_ID) === String(id)) || null; }
+
+function fillEditPlayerModal(playerId){
+  const player = findPlayerById(playerId); if(!player) return;
+  $('editPlayerId').value = player.Player_ID || '';
+  $('editPlayerNome').value = player.Nome_Jogador || '';
+  $('editPlayerNickname').value = player.Nickname || '';
+  $('editPlayerStatus').value = player.Assinatura_Status || 'Ativa';
+  $('editPlayerObs').value = player.Observacoes || '';
+  openModal('player');
+}
+
+function fillEditPaymentModal(paymentId){
+  const payment = findPaymentById(paymentId); if(!payment) return;
+  $('editPagamentoId').value = payment.Pagamento_ID || '';
+  $('editPagamentoAno').value = Number(payment.Competencia_Ano || state.paymentsRef.ano);
+  $('editPagamentoMes').value = Number(payment.Competencia_Mes || state.paymentsRef.mes);
+  $('editPagamentoValor').value = Number(payment.Valor || 0);
+  $('editPagamentoStatus').value = payment.Status_Pagamento || 'Pago';
+  $('editPagamentoData').value = toInputDate(payment.Data_Pagamento);
+  $('editPagamentoRef').value = payment.Referencia || '';
+  $('editPagamentoObs').value = payment.Observacoes || '';
+  openModal('payment');
+}
+
+async function deletePlayer(playerId){
+  if(!confirm('Excluir este jogador?\nSe ele tiver pagamentos vinculados, eles também serão excluídos.')) return;
+  try {
+    setActionButtonsDisabled(true);
+    await apiPost('excluirJogador', { player_id: playerId, excluir_pagamentos_relacionados: true });
+    await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
+  } catch(error) {
+    showMessage($('jogadorMsg'), error.message, 'error');
+  } finally {
+    setActionButtonsDisabled(false);
+  }
+}
+
+async function deletePayment(paymentId){
+  if(!confirm('Excluir este pagamento?')) return;
+  try {
+    setActionButtonsDisabled(true);
+    await apiPost('excluirPagamento', { pagamento_id: paymentId });
+    state.dashboardRef.ano = state.paymentsRef.ano;
+    state.dashboardRef.mes = state.paymentsRef.mes;
+    syncSelectorsFromState();
+    await Promise.all([loadCompetencia(), loadDashboard()]);
+  } catch(error) {
+    showMessage($('pagamentoMsg'), error.message, 'error');
+  } finally {
+    setActionButtonsDisabled(false);
+  }
+}
+
+function bindEvents(){
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+
+  document.addEventListener('click', async (e) => {
+    const quickBtn = e.target.closest('[data-quick-pay]'); if(quickBtn) return quickPayPlayer(quickBtn.getAttribute('data-quick-pay'));
+    const editPlayerBtn = e.target.closest('[data-edit-player]'); if(editPlayerBtn) return fillEditPlayerModal(editPlayerBtn.getAttribute('data-edit-player'));
+    const deletePlayerBtn = e.target.closest('[data-delete-player]'); if(deletePlayerBtn) return deletePlayer(deletePlayerBtn.getAttribute('data-delete-player'));
+    const editPaymentBtn = e.target.closest('[data-edit-payment]'); if(editPaymentBtn) return fillEditPaymentModal(editPaymentBtn.getAttribute('data-edit-payment'));
+    const deletePaymentBtn = e.target.closest('[data-delete-payment]'); if(deletePaymentBtn) return deletePayment(deletePaymentBtn.getAttribute('data-delete-payment'));
+    const close = e.target.closest('[data-close-modal]'); if(close) return closeModal(close.getAttribute('data-close-modal'));
+  });
+
+  document.addEventListener('change', (e) => {
+    if(e.target.matches('[data-naopagante-check="1"]')){
+      const id = String(e.target.value);
+      if(e.target.checked) state.selectedNaoPagantes.add(id); else state.selectedNaoPagantes.delete(id);
+    }
+  });
+
+  $('btnSyncAll').addEventListener('click', syncAll);
+  $('btnSincronizarInfo').addEventListener('click', syncAll);
+
+  $('btnTestarConexao').addEventListener('click', async () => {
+    try {
+      const json = await apiGet('health');
+      showMessage($('infoMsg'), json.message || 'Conexão OK.', 'success');
+      setSyncStatus('Conexão OK', 'success');
+    } catch(error) {
+      showMessage($('infoMsg'), error.message, 'error');
+      setSyncStatus('Falha na conexão', 'error');
+    }
+  });
+
+  $('btnAplicarDashboardPeriodo').addEventListener('click', async () => {
+    state.dashboardRef.ano = Number($('dashAno').value);
+    state.dashboardRef.mes = Number($('dashMes').value);
+    await loadDashboard();
+  });
+
+  $('btnAplicarCompetenciaPeriodo').addEventListener('click', async () => {
+    state.paymentsRef.ano = Number($('payAno').value);
+    state.paymentsRef.mes = Number($('payMes').value);
+    await loadCompetencia();
+  });
+
+  $('btnAplicarGastosPeriodo').addEventListener('click', async () => {
+    state.gastosRef.ano = Number($('gastAno').value);
+    state.gastosRef.mes = Number($('gastMes').value);
+    await loadGastos();
+  });
+
+  $('filtroNaoPagantes').addEventListener('input', renderNaoPagantes);
+  $('filtroPagamentos').addEventListener('input', renderPagamentos);
+  $('filtroGastos').addEventListener('input', renderGastos);
+  $('filtroGastosCategoria').addEventListener('change', renderGastos);
+
+  $('btnSelecionarTodosNaoPagantes').addEventListener('click', () => {
+    (state.competencia.nao_pagantes || []).forEach(item => state.selectedNaoPagantes.add(String(item.Player_ID)));
+    renderNaoPagantes();
+  });
+
+  $('btnLimparSelecaoNaoPagantes').addEventListener('click', () => {
+    state.selectedNaoPagantes.clear();
+    renderNaoPagantes();
+  });
+
+  $('btnRegistrarLote').addEventListener('click', registerBulkSelected);
+
+  $('formJogador').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMessage($('jogadorMsg'));
+    try {
+      setActionButtonsDisabled(true);
+      const payload = {
+        nome_jogador: $('jogNome').value.trim(),
+        nickname: $('jogNickname').value.trim(),
+        assinatura_status: $('jogStatus').value,
+        observacoes: $('jogObs').value.trim()
+      };
+      const json = await apiPost('cadastrarJogador', payload);
+      showMessage($('jogadorMsg'), `${json.message}
+ID gerado: ${json.data.player_id}`, 'success');
+      $('formJogador').reset();
+      $('jogStatus').value = 'Ativa';
+      await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
+    } catch(error) {
+      showMessage($('jogadorMsg'), error.message, 'error');
+    } finally {
+      setActionButtonsDisabled(false);
+    }
+  });
+
+  $('btnFiltrarJogadores').addEventListener('click', renderJogadores);
+  $('btnLimparFiltroJogadores').addEventListener('click', () => {
+    $('filtroJogadorTexto').value = '';
+    $('filtroJogadorStatus').value = '';
+    renderJogadores();
+  });
+
+  $('btnFiltrarGastos').addEventListener('click', renderGastos);
+  $('btnLimparFiltroGastos').addEventListener('click', () => {
+    $('filtroGastos').value = '';
+    $('filtroGastosCategoria').value = '';
+    renderGastos();
+  });
+
+  $('formGasto').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMessage($('gastoMsg'));
+    try {
+      setActionButtonsDisabled(true);
+      const payload = {
+        Descricao: $('gastDescricao').value.trim(),
+        Categoria: $('gastCategoria').value,
+        Valor: Number($('gastValor').value),
+        Data_Gasto: $('gastData').value,
+        Competencia_Ano: state.gastosRef.ano,
+        Competencia_Mes: state.gastosRef.mes,
+        Referencia: '',
+        Observacoes: ''
+      };
+      let json;
+      try {
+        json = await apiPostGastos('cadastrarGasto', payload);
+      } catch(err) {
+        json = await apiPostGastos('registrarGasto', payload);
+      }
+      if(Array.isArray(json.data)) state.gastos = json.data;
+      showMessage($('gastoMsg'), `${json.message || 'Gasto registrado com sucesso!'}${gastoField(json.data || {}, 'gasto_id', 'Gasto_ID') ? '\nID: ' + gastoField(json.data || {}, 'gasto_id', 'Gasto_ID') : ''}`, 'success');
+      $('formGasto').reset();
+      $('gastCategoria').value = '';
+      $('gastData').value = getTodayISO();
+      await loadGastos();
+      await loadDashboard();
+    } catch(error) {
+      showMessage($('gastoMsg'), error.message, 'error');
+    } finally {
+      setActionButtonsDisabled(false);
+    }
+  });
+
+  $('formEditPlayer').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMessage($('editPlayerMsg'));
+    try {
+      setActionButtonsDisabled(true);
+      const payload = {
+        player_id: $('editPlayerId').value,
+        nome_jogador: $('editPlayerNome').value.trim(),
+        nickname: $('editPlayerNickname').value.trim(),
+        assinatura_status: $('editPlayerStatus').value,
+        observacoes: $('editPlayerObs').value.trim()
+      };
+      const json = await apiPost('editarJogador', payload);
+      showMessage($('editPlayerMsg'), json.message || 'Jogador salvo.', 'success');
+      await Promise.all([loadJogadores(), loadCompetencia(), loadDashboard()]);
+      setTimeout(() => closeModal('player'), 500);
+    } catch(error) {
+      showMessage($('editPlayerMsg'), error.message, 'error');
+    } finally {
+      setActionButtonsDisabled(false);
+    }
+  });
+
+  $('formEditPayment').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMessage($('editPaymentMsg'));
+    try {
+      setActionButtonsDisabled(true);
+      const payload = {
+        pagamento_id: $('editPagamentoId').value,
+        competencia_ano: Number($('editPagamentoAno').value),
+        competencia_mes: Number($('editPagamentoMes').value),
+        valor: Number($('editPagamentoValor').value || 0),
+        status_pagamento: $('editPagamentoStatus').value,
+        data_pagamento: $('editPagamentoData').value,
+        referencia: $('editPagamentoRef').value.trim(),
+        observacoes: $('editPagamentoObs').value.trim()
+      };
+      const json = await apiPost('editarPagamento', payload);
+      showMessage($('editPaymentMsg'), json.message || 'Pagamento salvo.', 'success');
+      state.dashboardRef.ano = state.paymentsRef.ano;
+      state.dashboardRef.mes = state.paymentsRef.mes;
+      syncSelectorsFromState();
+      await Promise.all([loadCompetencia(), loadDashboard()]);
+      setTimeout(() => closeModal('payment'), 500);
+    } catch(error) {
+      showMessage($('editPaymentMsg'), error.message, 'error');
+    } finally {
+      setActionButtonsDisabled(false);
+    }
+  });
+}
+
+function bootstrap(){
+  const now = new Date();
+  let ano = Math.max(now.getFullYear(), 2026);
+  let mes = now.getMonth() + 1;
+  if(ano === 2026 && mes < 2) mes = 2;
+  state.dashboardRef = { ano, mes };
+  state.paymentsRef = { ano, mes };
+  state.gastosRef = { ano, mes };
+  fillYearMonthSelectors();
+  $('quickData').value = getTodayISO();
+  $('gastData').value = getTodayISO();
+  loadGastosFromStorage();
+  bindEvents();
+  document.addEventListener('click', async (e) => {
+    const deleteGastoBtn = e.target.closest('[data-delete-gasto]'); if(deleteGastoBtn) return deleteGasto(Number(deleteGastoBtn.getAttribute('data-delete-gasto')));
+  });
+  syncAll();
+}
+
+function saveGastosToStorage(){
+  localStorage.setItem('tsurus_gastos', JSON.stringify(state.gastos));
+}
+
+function loadGastosFromStorage(){
+  const stored = localStorage.getItem('tsurus_gastos');
+  if(stored) {
+    try { state.gastos = JSON.parse(stored) || []; } catch(e) { state.gastos = []; }
+  }
+}
+
+async function loadGastos(){
+  setLoadingArea('gastosTableLoading', true, 'Consultando gastos...');
+  try {
+    let json;
+    try {
+      json = await apiGetGastos('listarGastos', { ano: state.gastosRef.ano, mes: state.gastosRef.mes });
+    } catch(err) {
+      json = await apiGetGastos('listarGastosPorCompetencia', { ano: state.gastosRef.ano, mes: state.gastosRef.mes });
+    }
+    state.gastos = Array.isArray(json.data) ? json.data : [];
+    saveGastosToStorage();
+    renderGastos();
+    updateGastosSummary();
+    setSyncStatus('Gastos atualizados', 'success');
+  } catch(error) {
+    showMessage($('gastoMsg'), `Falha ao carregar gastos: ${error.message}`,'error');
+    loadGastosFromStorage();
+    renderGastos();
+    updateGastosSummary();
+    setSyncStatus('Gastos em cache local', 'warn');
+  } finally {
+    setLoadingArea('gastosTableLoading', false);
+  }
+}
+
+function updateGastosSummary(){
+  const periodo = state.gastos.filter(g => Number(gastoField(g, 'ano', 'Competencia_Ano')) === state.gastosRef.ano && Number(gastoField(g, 'mes', 'Competencia_Mes')) === state.gastosRef.mes);
+  const alimentacao = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Alimentação').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
+  const servidores = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Servidores').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
+  const outros = periodo.filter(g => String(gastoField(g, 'categoria', 'Categoria')) === 'Outros custos').reduce((acc,g) => acc + Number(gastoField(g, 'valor', 'Valor') || 0), 0);
+  const total = alimentacao + servidores + outros;
+  $('gastTotalMes').textContent = fmtCurrency(total);
+  $('gastAlimentacao').textContent = fmtCurrency(alimentacao);
+  $('gastServidores').textContent = fmtCurrency(servidores);
+  $('gastOutros').textContent = fmtCurrency(outros);
+  $('gastQuantidade').textContent = String(periodo.length);
+}
+
+function renderGastos(){
+  const tbody = $('gastosBody');
+  const q = $('filtroGastos').value.trim().toLowerCase();
+  const categoria = $('filtroGastosCategoria').value;
+  let lista = state.gastos.filter(g => Number(gastoField(g, 'ano', 'Competencia_Ano')) === state.gastosRef.ano && Number(gastoField(g, 'mes', 'Competencia_Mes')) === state.gastosRef.mes);
+  if(q) { lista = lista.filter(item => String(gastoField(item, 'descricao', 'Descricao')).toLowerCase().includes(q) || String(gastoField(item, 'categoria', 'Categoria')).toLowerCase().includes(q)); }
+  if(categoria) { lista = lista.filter(item => String(gastoField(item, 'categoria', 'Categoria')) === categoria); }
+  updateGastosSummary();
+  if(!lista.length){ tbody.innerHTML = `<tr><td colspan="5"><div class="empty">Nenhum gasto encontrado para este período.</div></td></tr>`; return; }
+  tbody.innerHTML = lista.map(item => `<tr>
+    <td>${fmtDate(gastoField(item, 'data', 'Data_Gasto'))}</td>
+    <td><span class="badge free">${escapeHtml(gastoField(item, 'categoria', 'Categoria') || '-')}</span></td>
+    <td>${escapeHtml(gastoField(item, 'descricao', 'Descricao') || '-')}</td>
+    <td><strong>${fmtCurrency(gastoField(item, 'valor', 'Valor'))}</strong></td>
+    <td><div class="inline-actions">
+      <button class="btn btn-danger btn-sm" type="button" data-action-btn="1" data-delete-gasto="${gastoField(item, 'id', 'Gasto_ID')}">Excluir</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+async function deleteGasto(id){
+  if(!confirm('Excluir este gasto?')) return;
+  try {
+    setActionButtonsDisabled(true);
+    try {
+      await apiPostGastos('excluirGasto', { gasto_id: id });
+    } catch(err) {
+      await apiPostGastos('deletarGasto', { gasto_id: id });
+    }
+    state.gastos = state.gastos.filter(g => String(gastoField(g, 'id', 'Gasto_ID')) !== String(id));
+    saveGastosToStorage();
+    await loadGastos();
+    await loadDashboard();
+  } catch(error) {
+    showMessage($('gastoMsg'), error.message, 'error');
+  } finally {
+    setActionButtonsDisabled(false);
+  }
+}
+bootstrap();
+</script>
+</body>
+</html>
